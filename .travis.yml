@@ -1,0 +1,17 @@
+cache:
+  yarn: true
+
+language: node_js
+
+install:
+  - npm install -g codecov
+
+node_js:
+  - "8"
+
+script:
+  - yarn lint
+  - yarn test
+  - codecov
+
+sudo: required
