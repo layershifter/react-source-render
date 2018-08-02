@@ -64,7 +64,7 @@
     "react-dom": "^16.3.0"
   },
   "scripts": {
-    "build:docs": "react-static build",
+    "build:docs": "cross-env NODE_ENV=production react-static build",
     "build:lib": "node rollup.js",
     "precommit": "lint-staged",
     "postcommit": "git update-index --again",

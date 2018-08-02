@@ -1,8 +1,11 @@
 import path from "path"
 import Document from "./docs/Document"
 
+const basePath = process.env.NODE_ENV === "production" && "react-source-render"
+const publicPath = process.env.NODE_ENV === "production" ? "/react-source-render/" : "/"
+
 export default {
-  basePath: "react-source-render",
+  basePath,
   Document,
   getSiteData: async ({ dev }) => ({
     dev,
@@ -46,11 +49,11 @@ export default {
     output: Array.isArray(previousConfig.output)
       ? previousConfig.output.map(entry => ({
           ...entry,
-          publicPath: stage === "development" ? "/" : "/react-source-render/",
+          publicPath,
         }))
       : {
           ...previousConfig.output,
-          publicPath: stage === "development" ? "/" : "/react-source-render/",
+          publicPath,
         },
     resolve: {
       ...previousConfig.resolve,
