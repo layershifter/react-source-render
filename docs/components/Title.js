@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 import React, { Fragment } from "react"
 import { Head, withSiteData } from "react-static"
-import { Header, Image, Label, Segment } from "semantic-ui-react"
+import { Button, Header, Image, Label, Segment } from "semantic-ui-react"
 
 const Title = ({ version }) => (
   <Fragment>
@@ -20,7 +20,12 @@ const Title = ({ version }) => (
 
       <Header
         as="h1"
-        content="React Source Render"
+        content={
+          <Fragment>
+            <span>React Source Render</span>
+            <Label size="small">{version}</Label>
+          </Fragment>
+        }
         inverted
         style={{
           fontSize: "3em",
@@ -28,7 +33,16 @@ const Title = ({ version }) => (
         }}
         subheader="An irreplaceable thing for sandbox with React."
       />
-      <Label>{version}</Label>
+
+      <Button
+        as="a"
+        color="black"
+        compact
+        content="Check source on Github"
+        href="https://github.com/layershifter/react-source-render"
+        icon="github"
+        target="_blank"
+      />
     </Segment>
   </Fragment>
 )
