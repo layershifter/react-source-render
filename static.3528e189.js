@@ -543,8 +543,8 @@ exports.default = void 0;
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-var hasDocument = (typeof document === "undefined" ? "undefined" : _typeof(document)) === 'object' && document !== null;
-var hasWindow = (typeof window === "undefined" ? "undefined" : _typeof(window)) === 'object' && window !== null && window.self === window;
+var hasDocument = (typeof document === "undefined" ? "undefined" : _typeof(document)) === "object" && document !== null;
+var hasWindow = (typeof window === "undefined" ? "undefined" : _typeof(window)) === "object" && window !== null && window.self === window;
 var isBrowser = hasDocument && hasWindow;
 var _default = isBrowser;
 exports.default = _default;
@@ -719,7 +719,7 @@ exports.default = void 0;
 
 var _Segment2 = _interopRequireDefault(__webpack_require__(1));
 
-var _Message2 = _interopRequireDefault(__webpack_require__(40));
+var _Message2 = _interopRequireDefault(__webpack_require__(41));
 
 var _Label2 = _interopRequireDefault(__webpack_require__(10));
 
@@ -733,11 +733,11 @@ var _react = _interopRequireWildcard(__webpack_require__(0));
 
 var _reactAce = _interopRequireDefault(__webpack_require__(11));
 
-var _reactSourceRender = _interopRequireDefault(__webpack_require__(41));
+var _reactSourceRender = _interopRequireDefault(__webpack_require__(42));
 
 __webpack_require__(20);
 
-__webpack_require__(54);
+__webpack_require__(55);
 
 __webpack_require__(12);
 
@@ -890,7 +890,7 @@ function (_Component) {
         as: "a",
         attached: "bottom right",
         color: "black",
-        href: "https://github.com/layershifter/react-source-render/blob/master/docs/components/Sandbox.js",
+        href: "https://github.com/layershifter/react-source-render/blob/master/docs/components/Sandbox",
         size: "tiny",
         target: "blank"
       }, _react.default.createElement(_Icon2.default, {
@@ -936,9 +936,9 @@ Object.defineProperty(exports, "resolverId", {
   }
 });
 
-var _exportToIifePlugin = _interopRequireDefault(__webpack_require__(48));
+var _exportToIifePlugin = _interopRequireDefault(__webpack_require__(49));
 
-var _importResolverPlugin = _interopRequireWildcard(__webpack_require__(49));
+var _importResolverPlugin = _interopRequireWildcard(__webpack_require__(50));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -970,7 +970,7 @@ var _react = _interopRequireWildcard(__webpack_require__(0));
 
 var _reactAce = _interopRequireDefault(__webpack_require__(11));
 
-__webpack_require__(55);
+__webpack_require__(56);
 
 __webpack_require__(12);
 
@@ -978,7 +978,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var code = "$ yarn add react-source-render\n# or$\n$ npm install react-source-render --save";
+var code = "$ yarn add react-source-render\n# or\n$ npm install react-source-render --save";
 
 var QuickStart = function QuickStart() {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Header2.default, {
@@ -1032,7 +1032,7 @@ var _Icon2 = _interopRequireDefault(__webpack_require__(4));
 
 var _Header2 = _interopRequireDefault(__webpack_require__(2));
 
-var _copyToClipboard = _interopRequireDefault(__webpack_require__(56));
+var _copyToClipboard = _interopRequireDefault(__webpack_require__(57));
 
 var _react = _interopRequireWildcard(__webpack_require__(0));
 
@@ -1238,9 +1238,9 @@ var _Sandbox = _interopRequireDefault(__webpack_require__(30));
 
 var _Title = _interopRequireDefault(__webpack_require__(36));
 
-var _QuickStart = _interopRequireDefault(__webpack_require__(38));
+var _QuickStart = _interopRequireDefault(__webpack_require__(39));
 
-var _Usage = _interopRequireDefault(__webpack_require__(39));
+var _Usage = _interopRequireDefault(__webpack_require__(40));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -1362,9 +1362,9 @@ var Usage = function Usage() {
     basic: "very"
   }, _react.default.createElement(_Table2.default.Body, null, _react.default.createElement(_Table2.default.Row, null, _react.default.createElement(_Table2.default.Cell, null, _react.default.createElement("code", null, "babelConfig")), _react.default.createElement(_Table2.default.Cell, null, "A config for Babel.")), _react.default.createElement(_Table2.default.Row, null, _react.default.createElement(_Table2.default.Cell, null, _react.default.createElement("code", null, "onError")), _react.default.createElement(_Table2.default.Cell, null, _react.default.createElement("p", null, "A callback that will be called after the render process that ended with an error."), _react.default.createElement(_List2.default, {
     bulleted: true
-  }, _react.default.createElement(_List2.default.Item, null, _react.default.createElement("code", null, "{Error}", " error")), _react.default.createElement(_List2.default.Item, null, _react.default.createElement("code", null, "{Object}", " props"))))), _react.default.createElement(_Table2.default.Row, null, _react.default.createElement(_Table2.default.Cell, null, _react.default.createElement("code", null, "onError")), _react.default.createElement(_Table2.default.Cell, null, _react.default.createElement("p", null, "A callback that will be called after the render process that ended successfully."), _react.default.createElement(_List2.default, {
+  }, _react.default.createElement(_List2.default.Item, null, _react.default.createElement("code", null, "{Error}", " error")), _react.default.createElement(_List2.default.Item, null, _react.default.createElement("code", null, "{Object}", " props"))))), _react.default.createElement(_Table2.default.Row, null, _react.default.createElement(_Table2.default.Cell, null, _react.default.createElement("code", null, "onSuccess")), _react.default.createElement(_Table2.default.Cell, null, _react.default.createElement("p", null, "A callback that will be called after the render process that ended successfully."), _react.default.createElement(_List2.default, {
     bulleted: true
-  }, _react.default.createElement(_List2.default.Item, null, _react.default.createElement("code", null, "{Null}", " null")), _react.default.createElement(_List2.default.Item, null, _react.default.createElement("code", null, "{Object}", " props"))))), _react.default.createElement(_Table2.default.Row, null, _react.default.createElement(_Table2.default.Cell, null, _react.default.createElement("code", null, "onSuccess")), _react.default.createElement(_Table2.default.Cell, null)), _react.default.createElement(_Table2.default.Row, null, _react.default.createElement(_Table2.default.Cell, null, _react.default.createElement("code", null, "resolver")), _react.default.createElement(_Table2.default.Cell, null, "A function for the imports resolution.")), _react.default.createElement(_Table2.default.Row, null, _react.default.createElement(_Table2.default.Cell, null, _react.default.createElement("code", null, "source")), _react.default.createElement(_Table2.default.Cell, null, "A string that contains the source code."))))));
+  }, _react.default.createElement(_List2.default.Item, null, _react.default.createElement("code", null, "{Null}", " null")), _react.default.createElement(_List2.default.Item, null, _react.default.createElement("code", null, "{Object}", " props"))))), _react.default.createElement(_Table2.default.Row, null, _react.default.createElement(_Table2.default.Cell, null, _react.default.createElement("code", null, "resolver")), _react.default.createElement(_Table2.default.Cell, null, "A function for the imports resolution.")), _react.default.createElement(_Table2.default.Row, null, _react.default.createElement(_Table2.default.Cell, null, _react.default.createElement("code", null, "source")), _react.default.createElement(_Table2.default.Cell, null, "A string that contains the source code."))))));
 };
 
 var _default = Usage;
@@ -1394,6 +1394,8 @@ var _universalImport2 = _interopRequireDefault(__webpack_require__(6));
 
 var _Loader2 = _interopRequireDefault(__webpack_require__(7));
 
+var _react = _interopRequireDefault(__webpack_require__(0));
+
 var _reactUniversalComponent = _interopRequireDefault(__webpack_require__(8));
 
 var _isBrowser = _interopRequireDefault(__webpack_require__(9));
@@ -1409,7 +1411,7 @@ var _default = _isBrowser.default ? (0, _reactUniversalComponent.default)((0, _u
     });
   },
   path: function path() {
-    return _path2.default.join(__dirname, './Sandbox');
+    return _path2.default.join(__dirname, "./Sandbox");
   },
   resolve: function resolve() {
     return /*require.resolve*/(18);
@@ -1419,7 +1421,7 @@ var _default = _isBrowser.default ? (0, _reactUniversalComponent.default)((0, _u
   }
 }), {
   loading: function loading() {
-    return React.createElement(_Loader2.default, {
+    return _react.default.createElement(_Loader2.default, {
       active: true,
       inline: "centered"
     });
@@ -1748,11 +1750,13 @@ var _Image2 = _interopRequireDefault(__webpack_require__(14));
 
 var _Header2 = _interopRequireDefault(__webpack_require__(2));
 
+var _Button2 = _interopRequireDefault(__webpack_require__(37));
+
 var _propTypes = _interopRequireDefault(__webpack_require__(3));
 
 var _react = _interopRequireWildcard(__webpack_require__(0));
 
-var _reactStatic = __webpack_require__(37);
+var _reactStatic = __webpack_require__(38);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -1775,14 +1779,24 @@ var Title = function Title(_ref) {
     src: "/logo-white.png"
   }), _react.default.createElement(_Header2.default, {
     as: "h1",
-    content: "React Source Render",
+    content: _react.default.createElement(_react.Fragment, null, _react.default.createElement("span", null, "React Source Render"), _react.default.createElement(_Label2.default, {
+      size: "small"
+    }, version)),
     inverted: true,
     style: {
       fontSize: "3em",
       fontWeight: "normal"
     },
     subheader: "An irreplaceable thing for sandbox with React."
-  }), _react.default.createElement(_Label2.default, null, version)));
+  }), _react.default.createElement(_Button2.default, {
+    as: "a",
+    color: "black",
+    compact: true,
+    content: "Check source on Github",
+    href: "https://github.com/layershifter/react-source-render",
+    icon: "github",
+    target: "_blank"
+  })));
 };
 
 Title.propTypes = {
@@ -1797,62 +1811,13 @@ exports.default = _default;
 /* 37 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-static");
+module.exports = require("semantic-ui-react/dist\\commonjs\\elements\\Button/Button");
 
 /***/ }),
 /* 38 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _path2 = _interopRequireDefault(__webpack_require__(5));
-
-var _universalImport2 = _interopRequireDefault(__webpack_require__(6));
-
-var _Loader2 = _interopRequireDefault(__webpack_require__(7));
-
-var _reactUniversalComponent = _interopRequireDefault(__webpack_require__(8));
-
-var _isBrowser = _interopRequireDefault(__webpack_require__(9));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = _isBrowser.default ? (0, _reactUniversalComponent.default)((0, _universalImport2.default)({
-  id: "./QuickStart",
-  file: "C:\\Users\\value\\WebstormProjects\\react-source-render\\docs\\components\\QuickStart\\index.js",
-  load: function load() {
-    return Promise.all([Promise.resolve(/* import() | QuickStart */).then(__webpack_require__.t.bind(null, 21, 7))]).then(function (proms) {
-      return proms[0];
-    });
-  },
-  path: function path() {
-    return _path2.default.join(__dirname, './QuickStart');
-  },
-  resolve: function resolve() {
-    return /*require.resolve*/(21);
-  },
-  chunkName: function chunkName() {
-    return "QuickStart";
-  }
-}), {
-  loading: function loading() {
-    return React.createElement(_Loader2.default, {
-      active: true,
-      inline: "centered"
-    });
-  }
-}) : function () {
-  return null;
-};
-
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, "/"))
+module.exports = require("react-static");
 
 /***/ }),
 /* 39 */
@@ -1872,6 +1837,65 @@ var _universalImport2 = _interopRequireDefault(__webpack_require__(6));
 
 var _Loader2 = _interopRequireDefault(__webpack_require__(7));
 
+var _react = _interopRequireDefault(__webpack_require__(0));
+
+var _reactUniversalComponent = _interopRequireDefault(__webpack_require__(8));
+
+var _isBrowser = _interopRequireDefault(__webpack_require__(9));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _isBrowser.default ? (0, _reactUniversalComponent.default)((0, _universalImport2.default)({
+  id: "./QuickStart",
+  file: "C:\\Users\\value\\WebstormProjects\\react-source-render\\docs\\components\\QuickStart\\index.js",
+  load: function load() {
+    return Promise.all([Promise.resolve(/* import() | QuickStart */).then(__webpack_require__.t.bind(null, 21, 7))]).then(function (proms) {
+      return proms[0];
+    });
+  },
+  path: function path() {
+    return _path2.default.join(__dirname, "./QuickStart");
+  },
+  resolve: function resolve() {
+    return /*require.resolve*/(21);
+  },
+  chunkName: function chunkName() {
+    return "QuickStart";
+  }
+}), {
+  loading: function loading() {
+    return _react.default.createElement(_Loader2.default, {
+      active: true,
+      inline: "centered"
+    });
+  }
+}) : function () {
+  return null;
+};
+
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, "/"))
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(__dirname) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _path2 = _interopRequireDefault(__webpack_require__(5));
+
+var _universalImport2 = _interopRequireDefault(__webpack_require__(6));
+
+var _Loader2 = _interopRequireDefault(__webpack_require__(7));
+
+var _react = _interopRequireDefault(__webpack_require__(0));
+
 var _reactUniversalComponent = _interopRequireDefault(__webpack_require__(8));
 
 var _isBrowser = _interopRequireDefault(__webpack_require__(9));
@@ -1887,7 +1911,7 @@ var _default = _isBrowser.default ? (0, _reactUniversalComponent.default)((0, _u
     });
   },
   path: function path() {
-    return _path2.default.join(__dirname, './Usage');
+    return _path2.default.join(__dirname, "./Usage");
   },
   resolve: function resolve() {
     return /*require.resolve*/(22);
@@ -1897,7 +1921,7 @@ var _default = _isBrowser.default ? (0, _reactUniversalComponent.default)((0, _u
   }
 }), {
   loading: function loading() {
-    return React.createElement(_Loader2.default, {
+    return _react.default.createElement(_Loader2.default, {
       active: true,
       inline: "centered"
     });
@@ -1910,13 +1934,13 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, "/"))
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = require("semantic-ui-react/dist\\commonjs\\collections\\Message/Message");
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1932,12 +1956,12 @@ Object.defineProperty(exports, "default", {
   }
 });
 
-var _SourceRender = _interopRequireDefault(__webpack_require__(42));
+var _SourceRender = _interopRequireDefault(__webpack_require__(43));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1954,11 +1978,11 @@ var _react = _interopRequireWildcard(__webpack_require__(0));
 
 var _reactDom = __webpack_require__(13);
 
-var _server = __webpack_require__(43);
+var _server = __webpack_require__(44);
 
-var _createElement = _interopRequireDefault(__webpack_require__(44));
+var _createElement = _interopRequireDefault(__webpack_require__(45));
 
-var _noop = _interopRequireDefault(__webpack_require__(53));
+var _noop = _interopRequireDefault(__webpack_require__(54));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -2116,13 +2140,13 @@ _defineProperty(SourceRender, "defaultProps", {
 });
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2138,34 +2162,9 @@ Object.defineProperty(exports, "default", {
   }
 });
 
-var _createElement = _interopRequireDefault(__webpack_require__(45));
+var _createElement = _interopRequireDefault(__webpack_require__(46));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _evalSource = _interopRequireDefault(__webpack_require__(46));
-
-var _transformSource = _interopRequireDefault(__webpack_require__(50));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var createElement = function createElement(babelConfig, resolver, source) {
-  return (0, _evalSource.default)((0, _transformSource.default)(babelConfig, source), resolver);
-};
-
-var _default = createElement;
-exports.default = _default;
 
 /***/ }),
 /* 46 */
@@ -2179,7 +2178,32 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _fastMemoize = _interopRequireDefault(__webpack_require__(47));
+var _evalSource = _interopRequireDefault(__webpack_require__(47));
+
+var _transformSource = _interopRequireDefault(__webpack_require__(51));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createElement = function createElement(babelConfig, resolver, source) {
+  return (0, _evalSource.default)((0, _transformSource.default)(babelConfig, source), resolver);
+};
+
+var _default = createElement;
+exports.default = _default;
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _fastMemoize = _interopRequireDefault(__webpack_require__(48));
 
 var _react = __webpack_require__(0);
 
@@ -2210,13 +2234,13 @@ var _default = evalSource;
 exports.default = _default;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = require("fast-memoize");
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2264,7 +2288,7 @@ var _default = exportToIIFEPlugin;
 exports.default = _default;
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2311,7 +2335,7 @@ var _default = importResolverPlugin;
 exports.default = _default;
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2322,9 +2346,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var Babel = _interopRequireWildcard(__webpack_require__(51));
+var Babel = _interopRequireWildcard(__webpack_require__(52));
 
-var _deepmerge = _interopRequireDefault(__webpack_require__(52));
+var _deepmerge = _interopRequireDefault(__webpack_require__(53));
 
 var _babel = __webpack_require__(19);
 
@@ -2351,19 +2375,19 @@ var _default = transformSource;
 exports.default = _default;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = require("@babel/standalone");
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = require("deepmerge");
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2380,19 +2404,19 @@ var _default = noop;
 exports.default = _default;
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = require("brace/mode/html");
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports) {
 
 module.exports = require("brace/mode/sh");
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = require("copy-to-clipboard");
