@@ -13,7 +13,7 @@
 <!-- Badges -->
 <p align="center">
   <a href="https://travis-ci.com/layershifter/react-source-render">
-    <img alt="Travis CI" src="https://img.shields.io/travis/project/layershifter/react-source-render/master.svg?style=flat-square" />
+    <img alt="Travis CI" src="https://img.shields.io/travis/com/layershifter/react-source-render/master.svg?style=flat-square" />
   </a>
   <a href="https://codecov.io/gh/layershifter/react-source-render">
     <img alt="Codecov" src="https://img.shields.io/codecov/c/github/layershifter/react-source-render/master.svg?style=flat-square" />
