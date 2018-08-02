@@ -7,7 +7,7 @@
   "license": "MIT",
   "files": [
     "src",
-    "dist"
+    "lib"
   ],
   "dependencies": {
     "deepmerge": "^2.1.1",
