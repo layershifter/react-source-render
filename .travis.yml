@@ -4,7 +4,8 @@ cache:
 language: node_js
 
 install:
-  - npm install -g codecov
+  - yarn
+  - yarn global add codecov
 
 node_js:
   - "8"

@@ -12,7 +12,7 @@
 
 <!-- Badges -->
 <p align="center">
-  <a href="https://travis-ci.org/layershifter/react-source-render">
+  <a href="https://travis-ci.com/layershifter/react-source-render">
     <img alt="Travis CI" src="https://img.shields.io/travis/project/layershifter/react-source-render/master.svg?style=flat-square" />
   </a>
   <a href="https://codecov.io/gh/layershifter/react-source-render">
