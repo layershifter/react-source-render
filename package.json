@@ -1,6 +1,6 @@
 {
   "name": "react-source-render",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "lib/index.js",
   "repository": "https://github.com/layershifter/react-source-render.git",
   "author": "Alexander Fedyashov <a@fedyashov.com>",
