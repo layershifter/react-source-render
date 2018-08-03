@@ -1,11 +1,20 @@
 import * as Babel from "@babel/standalone"
 import merge from "deepmerge"
+import memoize from "fast-memoize"
 
 import { exportToIifePlugin, importResolverPlugin } from "../babel"
 
 Babel.registerPlugin("export-to-iife", exportToIifePlugin)
 Babel.registerPlugin("import-resolver", importResolverPlugin)
 
+/**
+ * Transform passed ES6 code to the evaluable code using plugins and a passed config.
+ *
+ * @param {Object} babelConfig A config for Babel
+ * @param {String} source A string that contains the source code
+ *
+ * @return {String}
+ */
 const transformSource = (babelConfig, source) => {
   const config = merge(
     {
@@ -19,4 +28,4 @@ const transformSource = (babelConfig, source) => {
   return code
 }
 
-export default transformSource
+export default memoize(transformSource)

@@ -4,7 +4,7 @@
 import { mount } from "enzyme"
 import React from "react"
 
-import noop from "./noop"
+import { noop } from "./util"
 import SourceRender from "./SourceRender"
 
 jest.useFakeTimers()

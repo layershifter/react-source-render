@@ -12,6 +12,9 @@
 
 <!-- Badges -->
 <p align="center">
+  <a href="https://www.npmjs.com/package/react-source-render">
+    <img alt="npm" src="https://img.shields.io/npm/v/react-source-render.svg?style=flat-square" />
+  </a>
   <a href="https://travis-ci.com/layershifter/react-source-render">
     <img alt="Travis CI" src="https://img.shields.io/travis/com/layershifter/react-source-render/master.svg?style=flat-square" />
   </a>
@@ -21,9 +24,9 @@
   <a href="https://david-dm.org/layershifter/react-source-render">
     <img alt="David" src="https://img.shields.io/david/layershifter/react-source-render.svg?style=flat-square" />
   </a>
-  <a href="https://www.npmjs.com/package/react-source-render">
-    <img alt="npm" src="https://img.shields.io/npm/v/react-source-render.svg?style=flat-square" />
-  </a>
+ 
+  <img src="http://img.badgesize.io/https://unpkg.com/react-source-render/lib/cjs/react-source-render.production.js?compression=gzip&label=gzip%20size&style=flat-square">
+  <img src="http://img.badgesize.io/https://unpkg.com/react-source-render/lib/cjs/react-source-render.production.js?label=size&style=flat-square">
 </p>
 
 

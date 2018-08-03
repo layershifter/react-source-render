@@ -15,6 +15,7 @@ const build = async (format, mode) => {
       "react-dom",
       "react-dom/server",
       format === "cjs" && "deepmerge",
+      format === "cjs" && "fast-deep-equal",
       format === "cjs" && "fast-memoize",
     ].filter(Boolean),
     input: "src/index.js",
