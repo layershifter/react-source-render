@@ -1,12 +1,13 @@
+import equal from "fast-deep-equal"
 import PropTypes from "prop-types"
-import React, { PureComponent } from "react"
+import React, { Component } from "react"
 import { render, unmountComponentAtNode } from "react-dom"
 import { renderToStaticMarkup } from "react-dom/server"
 
-import createElement from "./createElement"
-import noop from "./noop"
+import createElementFromSource from "./createElementFromSource"
+import { noop } from "./util"
 
-export default class SourceRender extends PureComponent {
+export default class SourceRender extends Component {
   static propTypes = {
     /** A config for Babel. */
     babelConfig: PropTypes.object,
@@ -52,6 +53,10 @@ export default class SourceRender extends PureComponent {
     this.renderElement()
   }
 
+  shouldComponentUpdate(nextProps) {
+    return !equal(this.props, nextProps)
+  }
+
   componentDidUpdate() {
     this.renderElement()
   }
@@ -67,13 +72,13 @@ export default class SourceRender extends PureComponent {
 
   renderElement() {
     this.frameId = requestAnimationFrame(() => {
-      const { babelConfig, onError, onSuccess, resolver, source } = this.props
+      const { babelConfig, onError, onSuccess, resolver, source, ...rest } = this.props
       const { element: prevElement } = this.state
 
       unmountComponentAtNode(this.ref)
 
       try {
-        const element = createElement(babelConfig, resolver, source)
+        const element = createElementFromSource(babelConfig, resolver, rest, source)
         const markup = renderToStaticMarkup(element)
 
         render(element, this.ref)
