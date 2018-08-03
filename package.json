@@ -78,7 +78,8 @@
     "stage": "react-static build --staging && serve dist",
     "start": "react-static start",
     "test": "cross-env NODE_ENV=test jest --coverage",
-    "test:watch": "yarn test --watchAll"
+    "test:watch": "yarn test --watch",
+    "test:watchAll": "yarn test --watchAll"
   },
   "jest": {
     "moduleFileExtensions": [
