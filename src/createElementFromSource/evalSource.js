@@ -8,11 +8,11 @@ import { resolverId } from "../babel"
  * @param {Object} resolverContext A context of resolver, will be passed as second argument to it
  */
 const evalSource = (source, resolver, resolverContext) => {
-  // eslint-disable-next-line no-unused-vars
   const resolverWithContext = importName => resolver(importName, resolverContext)
+  // eslint-disable-next-line no-new-func
+  const evalWithResolver = new Function(resolverId, `return ${source}`)
 
-  // eslint-disable-next-line no-eval
-  return eval(`var ${resolverId} = resolverWithContext; ${source}`)
+  return evalWithResolver(resolverWithContext)
 }
 
 export default evalSource
