@@ -737,7 +737,7 @@ var _reactSourceRender = _interopRequireDefault(__webpack_require__(42));
 
 __webpack_require__(20);
 
-__webpack_require__(55);
+__webpack_require__(57);
 
 __webpack_require__(12);
 
@@ -970,7 +970,7 @@ var _react = _interopRequireWildcard(__webpack_require__(0));
 
 var _reactAce = _interopRequireDefault(__webpack_require__(11));
 
-__webpack_require__(56);
+__webpack_require__(58);
 
 __webpack_require__(12);
 
@@ -1032,7 +1032,7 @@ var _Icon2 = _interopRequireDefault(__webpack_require__(4));
 
 var _Header2 = _interopRequireDefault(__webpack_require__(2));
 
-var _copyToClipboard = _interopRequireDefault(__webpack_require__(57));
+var _copyToClipboard = _interopRequireDefault(__webpack_require__(59));
 
 var _react = _interopRequireWildcard(__webpack_require__(0));
 
@@ -1972,17 +1972,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _fastDeepEqual = _interopRequireDefault(__webpack_require__(44));
+
 var _propTypes = _interopRequireDefault(__webpack_require__(3));
 
 var _react = _interopRequireWildcard(__webpack_require__(0));
 
 var _reactDom = __webpack_require__(13);
 
-var _server = __webpack_require__(44);
+var _server = __webpack_require__(45);
 
-var _createElement = _interopRequireDefault(__webpack_require__(45));
+var _createElementFromSource = _interopRequireDefault(__webpack_require__(46));
 
-var _noop = _interopRequireDefault(__webpack_require__(54));
+var _util = __webpack_require__(55);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -1991,6 +1993,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2012,8 +2018,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var SourceRender =
 /*#__PURE__*/
-function (_PureComponent) {
-  _inherits(SourceRender, _PureComponent);
+function (_Component) {
+  _inherits(SourceRender, _Component);
 
   function SourceRender() {
     var _getPrototypeOf2;
@@ -2045,6 +2051,11 @@ function (_PureComponent) {
       this.renderElement();
     }
   }, {
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps) {
+      return !(0, _fastDeepEqual.default)(this.props, nextProps);
+    }
+  }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
       this.renderElement();
@@ -2066,12 +2077,14 @@ function (_PureComponent) {
             onError = _this2$props.onError,
             onSuccess = _this2$props.onSuccess,
             resolver = _this2$props.resolver,
-            source = _this2$props.source;
+            source = _this2$props.source,
+            rest = _objectWithoutProperties(_this2$props, ["babelConfig", "onError", "onSuccess", "resolver", "source"]);
+
         var prevElement = _this2.state.element;
         (0, _reactDom.unmountComponentAtNode)(_this2.ref);
 
         try {
-          var element = (0, _createElement.default)(babelConfig, resolver, source);
+          var element = (0, _createElementFromSource.default)(babelConfig, resolver, rest, source);
           var markup = (0, _server.renderToStaticMarkup)(element);
           (0, _reactDom.render)(element, _this2.ref);
           onSuccess(null, _objectSpread({}, _this2.props, {
@@ -2098,7 +2111,7 @@ function (_PureComponent) {
   }]);
 
   return SourceRender;
-}(_react.PureComponent);
+}(_react.Component);
 
 exports.default = SourceRender;
 
@@ -2135,36 +2148,21 @@ _defineProperty(SourceRender, "propTypes", {
 
 _defineProperty(SourceRender, "defaultProps", {
   babelConfig: {},
-  onError: _noop.default,
-  onSuccess: _noop.default
+  onError: _util.noop,
+  onSuccess: _util.noop
 });
 
 /***/ }),
 /* 44 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-dom/server");
+module.exports = require("fast-deep-equal");
 
 /***/ }),
 /* 45 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return _createElement.default;
-  }
-});
-
-var _createElement = _interopRequireDefault(__webpack_require__(46));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+module.exports = require("react-dom/server");
 
 /***/ }),
 /* 46 */
@@ -2176,20 +2174,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _createElementFromSource.default;
+  }
+});
 
-var _evalSource = _interopRequireDefault(__webpack_require__(47));
-
-var _transformSource = _interopRequireDefault(__webpack_require__(51));
+var _createElementFromSource = _interopRequireDefault(__webpack_require__(47));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var createElement = function createElement(babelConfig, resolver, source) {
-  return (0, _evalSource.default)((0, _transformSource.default)(babelConfig, source), resolver);
-};
-
-var _default = createElement;
-exports.default = _default;
 
 /***/ }),
 /* 47 */
@@ -2203,41 +2197,64 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _fastMemoize = _interopRequireDefault(__webpack_require__(48));
-
 var _react = __webpack_require__(0);
 
-var _babel = __webpack_require__(19);
+var _evalSource = _interopRequireDefault(__webpack_require__(48));
+
+var _transformSource = _interopRequireDefault(__webpack_require__(51));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var wrapSource = function wrapSource(component) {
+/**
+ * Creates a valid React Element from source.
+ *
+ * @param {Object} babelConfig A config for Babel
+ * @param {Function} resolver A function for the imports resolution
+ * @param {Object} resolverContext A context of resolver, will be passed as second argument to it
+ * @param {String} source A string that contains the source code
+ */
+var createElementFromSource = function createElementFromSource(babelConfig, resolver, resolverContext, source) {
+  var transformed = (0, _transformSource.default)(babelConfig, source);
+  var component = (0, _evalSource.default)(transformed, resolver, resolverContext);
   return typeof component === "function" ? (0, _react.createElement)(component) : component;
 };
-/* eslint-disable */
-// Heads up!
-// It's okay to use eval() there, the `resolver` param cannot be removed as it used in the eval
-// scope.
 
-/**
- * @param {String} code
- * @param {Function} resolver
- *
- * @return {Object}
- */
-
-
-var evalSource = (0, _fastMemoize.default)(function (code, resolver) {
-  return wrapSource(eval("var ".concat(_babel.resolverId, " = resolver; ").concat(code)));
-});
-var _default = evalSource;
+var _default = createElementFromSource;
 exports.default = _default;
 
 /***/ }),
 /* 48 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("fast-memoize");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _babel = __webpack_require__(19);
+
+/**
+ * Evaluates passed source code, uses passed resolver to resolve imports.
+ *
+ * @param {String} source A string that contains the source code
+ * @param {Function} resolver A function for the imports resolution
+ * @param {Object} resolverContext A context of resolver, will be passed as second argument to it
+ */
+var evalSource = function evalSource(source, resolver, resolverContext) {
+  var resolverWithContext = function resolverWithContext(importName) {
+    return resolver(importName, resolverContext);
+  }; // eslint-disable-next-line no-new-func
+
+
+  var evalWithResolver = new Function(_babel.resolverId, "return ".concat(source));
+  return evalWithResolver(resolverWithContext);
+};
+
+var _default = evalSource;
+exports.default = _default;
 
 /***/ }),
 /* 49 */
@@ -2350,6 +2367,8 @@ var Babel = _interopRequireWildcard(__webpack_require__(52));
 
 var _deepmerge = _interopRequireDefault(__webpack_require__(53));
 
+var _fastMemoize = _interopRequireDefault(__webpack_require__(54));
+
 var _babel = __webpack_require__(19);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -2358,6 +2377,14 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 Babel.registerPlugin("export-to-iife", _babel.exportToIifePlugin);
 Babel.registerPlugin("import-resolver", _babel.importResolverPlugin);
+/**
+ * Transform passed ES6 code to the evaluable code using plugins and a passed config.
+ *
+ * @param {Object} babelConfig A config for Babel
+ * @param {String} source A string that contains the source code
+ *
+ * @return {String}
+ */
 
 var transformSource = function transformSource(babelConfig, source) {
   var config = (0, _deepmerge.default)({
@@ -2371,7 +2398,8 @@ var transformSource = function transformSource(babelConfig, source) {
   return code;
 };
 
-var _default = transformSource;
+var _default = (0, _fastMemoize.default)(transformSource);
+
 exports.default = _default;
 
 /***/ }),
@@ -2388,6 +2416,33 @@ module.exports = require("deepmerge");
 
 /***/ }),
 /* 54 */
+/***/ (function(module, exports) {
+
+module.exports = require("fast-memoize");
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "noop", {
+  enumerable: true,
+  get: function get() {
+    return _noop.default;
+  }
+});
+
+var _noop = _interopRequireDefault(__webpack_require__(56));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2404,19 +2459,19 @@ var _default = noop;
 exports.default = _default;
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = require("brace/mode/html");
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = require("brace/mode/sh");
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = require("copy-to-clipboard");
