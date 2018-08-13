@@ -2323,7 +2323,7 @@ var createVariableDeclaration = function createVariableDeclaration(t, specifier,
 };
 
 var createDestructedDeclaration = function createDestructedDeclaration(t, specifier, source) {
-  return t.variableDeclaration("const", [t.variableDeclarator(t.objectPattern([t.objectProperty(t.identifier(specifier.imported.name), t.identifier(specifier.imported.name), false, true)]), t.callExpression(t.identifier(resolverId), [t.stringLiteral(source.value)]))]);
+  return t.variableDeclaration("const", [t.variableDeclarator(t.objectPattern([t.objectProperty(t.identifier(specifier.imported.name), t.identifier(specifier.local.name), false, true)]), t.callExpression(t.identifier(resolverId), [t.stringLiteral(source.value)]))]);
 };
 
 var importResolverPlugin = function importResolverPlugin(_ref) {
