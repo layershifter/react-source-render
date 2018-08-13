@@ -14,7 +14,7 @@ const createDestructedDeclaration = (t, specifier, source) =>
       t.objectPattern([
         t.objectProperty(
           t.identifier(specifier.imported.name),
-          t.identifier(specifier.imported.name),
+          t.identifier(specifier.local.name),
           false,
           true,
         ),
