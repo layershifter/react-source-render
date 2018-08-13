@@ -32,6 +32,13 @@ const {
   Component
 } = ${resolverId}("react");`,
   },
+  {
+    name: "as",
+    source: "import { Component as C } from 'react'",
+    expected: `const {
+  Component: C
+} = ${resolverId}("react");`,
+  },
 ]
 
 Babel.registerPlugin("import-resolver", importResolverPlugin)
