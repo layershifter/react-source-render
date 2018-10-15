@@ -113,4 +113,26 @@ describe("SourceRender", () => {
       )
     })
   })
+
+  describe("renderHtml", () => {
+    it("will be called with null markup when is `false`", () => {
+      const onSuccess = jest.fn()
+      mount(
+        <SourceRender
+          onSuccess={onSuccess}
+          source={validSource}
+          renderHtml={false}
+          resolver={reactResolver}
+        />,
+      )
+
+      jest.runAllTimers()
+      expect(onSuccess).toBeCalledWith(
+        null,
+        expect.objectContaining({
+          markup: null,
+        }),
+      )
+    })
+  })
 })

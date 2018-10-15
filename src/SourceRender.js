@@ -29,6 +29,12 @@ export default class SourceRender extends Component {
     onSuccess: PropTypes.func,
 
     /**
+     * An option that controls rendering of HTML with ReactDOM server, it allows to omit
+     * rendering when you're using portals.
+     */
+    renderHtml: PropTypes.bool,
+
+    /**
      * A function for the imports resolution.
      *
      * @param {String} importPath
@@ -43,6 +49,7 @@ export default class SourceRender extends Component {
     babelConfig: {},
     onError: noop,
     onSuccess: noop,
+    renderHtml: true,
   }
 
   state = {
@@ -72,14 +79,14 @@ export default class SourceRender extends Component {
 
   renderElement() {
     this.frameId = requestAnimationFrame(() => {
-      const { babelConfig, onError, onSuccess, resolver, source, ...rest } = this.props
+      const { babelConfig, onError, onSuccess, renderHtml, resolver, source, ...rest } = this.props
       const { element: prevElement } = this.state
 
       unmountComponentAtNode(this.ref)
 
       try {
         const element = createElementFromSource(babelConfig, resolver, rest, source)
-        const markup = renderToStaticMarkup(element)
+        const markup = renderHtml ? renderToStaticMarkup(element) : null
 
         render(element, this.ref)
         onSuccess(null, { ...this.props, element, markup })

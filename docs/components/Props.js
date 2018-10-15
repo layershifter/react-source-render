@@ -60,6 +60,15 @@ const Usage = () => (
           </Table.Row>
           <Table.Row>
             <Table.Cell>
+              <code>renderHtml</code>
+            </Table.Cell>
+            <Table.Cell>
+              An option that controls rendering of HTML with ReactDOM server, it allows to omit
+              rendering when you are using portals.
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>
               <code>resolver</code>
             </Table.Cell>
             <Table.Cell>A function for the imports resolution.</Table.Cell>

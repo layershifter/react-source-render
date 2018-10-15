@@ -103,6 +103,7 @@ export default Example
             color="black"
             href="https://github.com/layershifter/react-source-render/blob/master/docs/components/Sandbox"
             size="tiny"
+            style={{ zIndex: 10 }}
             target="blank"
           >
             <Icon name="github" /> View source
