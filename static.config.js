@@ -33,7 +33,7 @@ export default {
     src: "docs",
   },
   siteRoot: "https://layershifter.github.io",
-  webpack: (previousConfig, { stage }) => ({
+  webpack: (previousConfig, { defaultLoaders, stage }) => ({
     ...previousConfig,
     devtool: stage === "development" ? previousConfig.devtool : false,
     externals:
@@ -46,6 +46,22 @@ export default {
             "react-dom": "ReactDOM",
             "react-dom/server": "ReactDOMServer",
           },
+    module: {
+      ...previousConfig.module,
+      rules: [
+        {
+          oneOf: [
+            {
+              test: /\.js$/,
+              include: path.resolve("src"),
+              use: "babel-loader",
+            },
+            defaultLoaders.jsLoader,
+            defaultLoaders.jsLoaderExt,
+          ],
+        },
+      ],
+    },
     output: Array.isArray(previousConfig.output)
       ? previousConfig.output.map(entry => ({
           ...entry,
