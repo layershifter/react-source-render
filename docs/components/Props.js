@@ -62,7 +62,10 @@ const Usage = () => (
             <Table.Cell>
               <code>renderHtml</code>
             </Table.Cell>
-            <Table.Cell>An options that controls rendering of HTML with ReactDOM server, it allows to omit rendering when you're using portals.</Table.Cell>
+            <Table.Cell>
+              An option that controls rendering of HTML with ReactDOM server, it allows to omit
+              rendering when you are using portals.
+            </Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell>
