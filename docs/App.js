@@ -72,7 +72,7 @@ const App = () => (
             rel="noopener noreferrer"
             title="Check my profile in LinkedIn"
           >
-            <Icon color="grey" name="linkedin in" size="large" />
+            <Icon color="grey" name="linkedin" size="large" />
           </a>
         </Grid.Column>
         <Grid.Column textAlign="right">

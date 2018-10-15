@@ -3,10 +3,7 @@
     "browser": true,
     "jest": true
   },
-  "extends": [
-    "airbnb",
-    "prettier"
-  ],
+  "extends": ["airbnb", "prettier"],
   "parser": "babel-eslint",
   "rules": {
     "global-require": 0,
