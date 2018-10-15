@@ -66,7 +66,7 @@ export default class Routes extends Component {
       }
       return (newProps = {}) => (
         Comp
-          ? <Comp {...newProps} {...(is404 ? {path: '404'} : {})} />
+          ? <Comp {...newProps} {...(is404 ? {is404: true} : {})} />
           : null
       )
     }
@@ -91,7 +91,7 @@ export default class Routes extends Component {
 
     // This is the default auto-routing renderer
     return (
-      <Route path='*' render={props => {
+      <Route render={props => {
         let Comp = getFullComponentForPath(props.location.pathname)
         // If Comp is used as a component here, it triggers React to re-mount the entire
         // component tree underneath during reconciliation, losing all internal state.
