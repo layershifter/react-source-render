@@ -94,6 +94,14 @@
     ]
   },
   "lint-staged": {
+    ".babelrc": [
+      "prettier --write",
+      "git add"
+    ],
+    ".eslintrc": [
+      "prettier --write",
+      "git add"
+    ],
     "*.json": [
       "prettier --write",
       "git add"
