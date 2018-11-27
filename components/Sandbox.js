@@ -1,11 +1,8 @@
 import { Grid, Header, Icon, Label, Message, Segment } from "semantic-ui-react"
 import React, { Component, Fragment } from "react"
-import AceEditor from "react-ace"
 import SourceRender from "react-source-render"
 
-import "brace/mode/jsx"
-import "brace/mode/html"
-import "brace/theme/github"
+import Editor from "./Editor"
 
 const imports = {
   react: React,
@@ -63,7 +60,7 @@ export default Example
                 Rendered HTML
               </Label>
 
-              <AceEditor
+              <Editor
                 editorProps={{ $blockScrolling: Infinity }}
                 highlightActiveLine={false}
                 highlightGutterLine={false}
@@ -84,7 +81,7 @@ export default Example
         </Segment>
 
         <Segment attached={error ? true : "bottom"} style={{ padding: 0 }}>
-          <AceEditor
+          <Editor
             editorProps={{ $blockScrolling: Infinity }}
             maxLines={Infinity}
             minLines={10}

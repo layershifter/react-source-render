@@ -1,14 +1,13 @@
 import copyToClipboard from "copy-to-clipboard"
 import React, { Component, Fragment } from "react"
-import AceEditor from "react-ace"
 import { Header, Icon, Label, Segment } from "semantic-ui-react"
 
-import "brace/mode/jsx"
-import "brace/theme/github"
+import Editor from "./Editor"
 
 const code = `
 import _ from 'lodash'
 import React from 'react'
+import SourceRender from 'react-source-render'
 
 const babelConfig = [
   presets: [
@@ -28,7 +27,7 @@ const Render = ({ sourceCode }) => (
   <SourceRender
     babelConfig={babelConfig}
     onError={error => console.log(error)}
-    onSuccess={error, { markup } => console.log('HTML', markup)}
+    onSuccess={(error, { markup }) => console.log('HTML', markup)}
     resolver={importResolver}
     source={sourceCode}
   />
@@ -68,7 +67,7 @@ export default class Usage extends Component {
             boxShadow: "rgb(204, 204, 204) 0px 1px 2px",
           }}
         >
-          <AceEditor
+          <Editor
             editorProps={{ $blockScrolling: Infinity }}
             highlightActiveLine={false}
             highlightGutterLine={false}

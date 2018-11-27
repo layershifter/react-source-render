@@ -1,9 +1,7 @@
 import React, { Fragment } from "react"
-import AceEditor from "react-ace"
 import { Header, Segment } from "semantic-ui-react"
 
-import "brace/mode/sh"
-import "brace/theme/github"
+import Editor from "./Editor"
 
 const code = `$ yarn add react-source-render
 # or
@@ -20,7 +18,7 @@ const QuickStart = () => (
         boxShadow: "rgb(204, 204, 204) 0px 1px 2px",
       }}
     >
-      <AceEditor
+      <Editor
         editorProps={{ $blockScrolling: Infinity }}
         highlightActiveLine={false}
         highlightGutterLine={false}

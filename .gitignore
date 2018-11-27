@@ -1,5 +1,5 @@
+/.next/
 /coverage/
-/dist/
-/node_modules/
 /lib/
-/tmp/
+/node_modules/
+/out/

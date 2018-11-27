@@ -1,7 +1,7 @@
 <!-- Logo -->
 <p align="center">
   <a href="https://layershifter.github.io/react-source-render/">
-    <img height="128" width="128" src="https://github.com/layershifter/react-source-render/raw/master/public/logo-teal.png">
+    <img height="128" width="128" src="https://github.com/layershifter/react-source-render/raw/master/static/logo-teal.png">
   </a>
 </p>
 
