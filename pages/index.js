@@ -1,17 +1,20 @@
+import PropTypes from "prop-types"
 import React, { Fragment } from "react"
 import { Container, Divider, Grid, Header, List, Icon, Image, Segment } from "semantic-ui-react"
 
-import Props from "./components/Props"
-import Sandbox from "./components/Sandbox"
-import Title from "./components/Title"
-import QuickStart from "./components/QuickStart"
-import Usage from "./components/Usage"
+import Props from "../components/Props"
+import Sandbox from "../components/Sandbox"
+import Title from "../components/Title"
+import QuickStart from "../components/QuickStart"
+import Usage from "../components/Usage"
+import Head from "../components/Head"
 
-const App = () => (
+const HomePage = ({ version }) => (
   <Fragment>
     <style>{`body {background: #f7f7f7}`}</style>
 
-    <Title />
+    <Head />
+    <Title version={version} />
 
     <Container>
       <Divider hidden />
@@ -83,7 +86,8 @@ const App = () => (
             style={{ color: "#fff" }}
             target="_blank"
           >
-            <Image style={{ height: 20, marginRight: 2 }} spaced src="/logo-sui.png" /> Semantic UI
+            <Image style={{ height: 20, marginRight: 2 }} spaced src="/static/logo-sui.png" />{" "}
+            Semantic UI
           </a>
         </Grid.Column>
       </Grid>
@@ -91,4 +95,12 @@ const App = () => (
   </Fragment>
 )
 
-export default App
+HomePage.getInitialProps = async () => ({
+  version: require("../package.json").version,
+})
+
+HomePage.propTypes = {
+  version: PropTypes.string.isRequired,
+}
+
+export default HomePage

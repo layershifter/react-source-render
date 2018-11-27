@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import { mount } from "enzyme"
-import React from "react"
+import * as React from "react"
 
 import { noop } from "./util"
 import SourceRender from "./SourceRender"

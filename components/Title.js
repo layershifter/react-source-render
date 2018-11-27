@@ -1,14 +1,9 @@
 import PropTypes from "prop-types"
 import React, { Fragment } from "react"
-import { Head, withSiteData } from "react-static"
 import { Button, Header, Image, Label, Segment } from "semantic-ui-react"
 
 const Title = ({ version }) => (
   <Fragment>
-    <Head>
-      <title>React Sandbox Render</title>
-    </Head>
-
     <Segment
       color="teal"
       inverted
@@ -16,7 +11,7 @@ const Title = ({ version }) => (
       style={{ minHeight: "20em", padding: "1em 0em" }}
       vertical
     >
-      <Image centered size="small" src="/logo-white.png" />
+      <Image centered size="small" src="/static/logo-white.png" />
 
       <Header
         as="h1"
@@ -51,4 +46,4 @@ Title.propTypes = {
   version: PropTypes.string.isRequired,
 }
 
-export default withSiteData(Title)
+export default Title
