@@ -9,7 +9,7 @@ import QuickStart from "../components/QuickStart"
 import Usage from "../components/Usage"
 import Head from "../components/Head"
 
-const Home = ({ version }) => (
+const HomePage = ({ version }) => (
   <Fragment>
     <style>{`body {background: #f7f7f7}`}</style>
 
@@ -95,12 +95,12 @@ const Home = ({ version }) => (
   </Fragment>
 )
 
-Home.getInitialProps = async () => ({
+HomePage.getInitialProps = async () => ({
   version: require("../package.json").version,
 })
 
-Home.propTypes = {
+HomePage.propTypes = {
   version: PropTypes.string.isRequired,
 }
 
-export default Home
+export default HomePage
