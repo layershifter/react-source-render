@@ -7,15 +7,13 @@ const cases = [
     source: "export default class Foo {}",
     expected: `class Foo {}
 
-  return Foo;
-`,
+return Foo;`,
   },
   {
     name: "const",
     source: "const Foo = 1; export default Foo",
     expected: `const Foo = 1;
-  return Foo;
-`,
+return Foo;`,
   },
 ]
 

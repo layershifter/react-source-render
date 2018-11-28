@@ -9,9 +9,9 @@ describe("evalSource", () => {
   it("passes context to resolved", () => {
     const resolver = jest.fn()
 
-    evalSource(`return ${resolverId}("IMPORT_PATH")`, resolver, "CONTEXT")
+    evalSource(`return ${resolverId}("IMPORT_PATH")`, resolver)
 
     expect(resolver).toBeCalledTimes(1)
-    expect(resolver).toBeCalledWith("IMPORT_PATH", "CONTEXT")
+    expect(resolver).toBeCalledWith("IMPORT_PATH")
   })
 })
