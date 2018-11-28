@@ -27,6 +27,9 @@ class SourceRender extends Component {
      */
     resolver: PropTypes.func.isRequired,
 
+    /** An object that will be passed additionally to resolver function. */
+    resolverContext: PropTypes.object,
+
     /** A string that contains the source code. */
     source: PropTypes.string.isRequired,
   }
@@ -34,6 +37,7 @@ class SourceRender extends Component {
   static defaultProps = {
     babelConfig: {},
     renderHtml: true,
+    resolverContext: {},
   }
 
   /** Stores an HTML markup for the current element. */
@@ -53,10 +57,23 @@ class SourceRender extends Component {
   }
 
   render() {
-    const { babelConfig, children, renderHtml, resolver, source, ...rest } = this.props
+    const {
+      babelConfig,
+      children,
+      renderHtml,
+      resolver,
+      resolverContext,
+      source,
+      ...rest
+    } = this.props
 
     try {
-      const ComponentFromSource = createComponentFromSource(babelConfig, resolver, rest, source)
+      const ComponentFromSource = createComponentFromSource(
+        babelConfig,
+        resolver,
+        resolverContext,
+        source,
+      )
 
       this.renderCycleId += 1
       this.currentElement = (
@@ -65,7 +82,7 @@ class SourceRender extends Component {
           onError={this.handleError}
           prevChildren={this.renderedElements}
         >
-          <ComponentFromSource />
+          <ComponentFromSource {...rest} />
         </SafeRender>
       )
       this.htmlMarkup = renderHtml ? renderToStaticMarkup(this.currentElement) : ""
