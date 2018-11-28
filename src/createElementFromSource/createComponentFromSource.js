@@ -1,4 +1,5 @@
 import memoize from "fast-memoize"
+import * as is from "react-is"
 
 import transformSource from "./transformSource"
 import { resolverId } from "../babel"
@@ -28,9 +29,15 @@ export const evalSource = memoize((source, resolver) => {
  */
 const createComponentFromSource = (babelConfig, resolver, resolverContext, source) => {
   const transformed = transformSource(babelConfig, source)
-  const resolverWithContext = importName => resolver(importName, resolverContext)
 
-  return evalSource(transformed, resolverWithContext)
+  const resolverWithContext = importName => resolver(importName, resolverContext)
+  const component = evalSource(transformed, resolverWithContext)
+
+  if (!is.isValidElementType(component)) {
+    throw new Error("Render: your source should have a default export with a React component")
+  }
+
+  return component
 }
 
 export default createComponentFromSource

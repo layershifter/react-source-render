@@ -16,6 +16,7 @@ const build = async (format, mode) => {
       "react-dom/server",
       format === "cjs" && "deepmerge",
       format === "cjs" && "fast-memoize",
+      format === "cjs" && "react-is",
     ].filter(Boolean),
     input: "src/index.js",
     plugins: [
@@ -30,6 +31,9 @@ const build = async (format, mode) => {
       }),
       commonjs({
         include: "node_modules/**",
+        namedExports: {
+          "node_modules/react-is/index.js": ["isValidElementType"],
+        },
       }),
       nodeResolve({
         jsnext: true,

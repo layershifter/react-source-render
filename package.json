@@ -12,7 +12,8 @@
   "dependencies": {
     "deepmerge": "^2.2.1",
     "fast-memoize": "^2.5.1",
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.6.2",
+    "react-is": "^16.6.3"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
