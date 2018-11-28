@@ -68,7 +68,7 @@ class SourceRender extends Component {
           <ComponentFromSource />
         </SafeRender>
       )
-      this.htmlMarkup = renderHtml ? renderToStaticMarkup(this.currentElement) : null
+      this.htmlMarkup = renderHtml ? renderToStaticMarkup(this.currentElement) : ""
 
       this.renderedElements[this.renderCycleId] = this.currentElement
       this.error = undefined
