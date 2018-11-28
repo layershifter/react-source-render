@@ -1,32 +1,18 @@
-import equal from "fast-deep-equal"
 import PropTypes from "prop-types"
-import React, { Component } from "react"
-import { render, unmountComponentAtNode } from "react-dom"
+import React, { Component, createContext } from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 
-import createElementFromSource from "./createElementFromSource"
-import { noop } from "./util"
+import createComponentFromSource from "./createElementFromSource"
+import SafeRender from "./SafeRender"
 
-export default class SourceRender extends Component {
+const { Consumer, Provider } = createContext("SourceRender.Element")
+
+class SourceRender extends Component {
   static propTypes = {
     /** A config for Babel. */
     babelConfig: PropTypes.object,
 
-    /**
-     * A callback that will be called after the render process that ended with an error.
-     *
-     * @param {Error} error
-     * @param {Object} props
-     */
-    onError: PropTypes.func,
-
-    /**
-     * A callback that will be called after the render process that ended successfully.
-     *
-     * @param {Error} error
-     * @param {Object} props
-     */
-    onSuccess: PropTypes.func,
+    children: PropTypes.node.isRequired,
 
     /**
      * An option that controls rendering of HTML with ReactDOM server, it allows to omit
@@ -47,59 +33,59 @@ export default class SourceRender extends Component {
 
   static defaultProps = {
     babelConfig: {},
-    onError: noop,
-    onSuccess: noop,
     renderHtml: true,
   }
 
-  state = {
-    element: null,
-  }
+  /** Stores an HTML markup for the current element. */
+  htmlMarkup = ""
 
-  componentDidMount() {
-    this.renderElement()
-  }
+  /** Stores a current rendered element. */
+  currentElement = null
 
-  shouldComponentUpdate(nextProps) {
-    return !equal(this.props, nextProps)
-  }
+  /** Stores previously rendered elements. */
+  renderedElements = { 0: null }
 
-  componentDidUpdate() {
-    this.renderElement()
-  }
+  /** Stores an incremented value of the render cycle. */
+  renderCycleId = 0
 
-  componentWillUnmount() {
-    if (this.frameId) cancelAnimationFrame(this.frameId)
-    if (this.ref) unmountComponentAtNode(this.ref)
-  }
-
-  handleRef = c => {
-    this.ref = c
-  }
-
-  renderElement() {
-    this.frameId = requestAnimationFrame(() => {
-      const { babelConfig, onError, onSuccess, renderHtml, resolver, source, ...rest } = this.props
-      const { element: prevElement } = this.state
-
-      unmountComponentAtNode(this.ref)
-
-      try {
-        const element = createElementFromSource(babelConfig, resolver, rest, source)
-        const markup = renderHtml ? renderToStaticMarkup(element) : null
-
-        render(element, this.ref)
-        onSuccess(null, { ...this.props, element, markup })
-
-        this.setState({ element })
-      } catch (error) {
-        onError(error, this.props)
-        render(prevElement, this.ref)
-      }
-    })
+  handleError = cycleId => {
+    this.renderedElements[cycleId] = undefined
   }
 
   render() {
-    return <div ref={this.handleRef} />
+    const { babelConfig, children, renderHtml, resolver, source, ...rest } = this.props
+
+    try {
+      const ComponentFromSource = createComponentFromSource(babelConfig, resolver, rest, source)
+
+      this.renderCycleId += 1
+      this.currentElement = (
+        <SafeRender
+          cycleId={this.renderCycleId}
+          onError={this.handleError}
+          prevChildren={this.renderedElements}
+        >
+          <ComponentFromSource />
+        </SafeRender>
+      )
+      this.htmlMarkup = renderHtml ? renderToStaticMarkup(this.currentElement) : ""
+
+      this.renderedElements[this.renderCycleId] = this.currentElement
+      this.error = undefined
+    } catch (e) {
+      this.error = e
+    }
+
+    return (
+      <Provider
+        value={{ error: this.error, element: this.currentElement, markup: this.htmlMarkup }}
+      >
+        {children}
+      </Provider>
+    )
   }
 }
+
+SourceRender.Consumer = Consumer
+
+export default SourceRender

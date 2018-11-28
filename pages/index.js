@@ -2,12 +2,11 @@ import PropTypes from "prop-types"
 import React, { Fragment } from "react"
 import { Container, Divider, Grid, Header, List, Icon, Image, Segment } from "semantic-ui-react"
 
+import Head from "../components/Head"
 import Props from "../components/Props"
 import Sandbox from "../components/Sandbox"
 import Title from "../components/Title"
 import QuickStart from "../components/QuickStart"
-import Usage from "../components/Usage"
-import Head from "../components/Head"
 
 const HomePage = ({ version }) => (
   <Fragment>
@@ -57,7 +56,6 @@ const HomePage = ({ version }) => (
       <QuickStart />
       <Sandbox />
       <Props />
-      <Usage />
     </Container>
 
     <Segment basic inverted>

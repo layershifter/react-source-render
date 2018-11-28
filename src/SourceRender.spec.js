@@ -4,10 +4,7 @@
 import { mount } from "enzyme"
 import * as React from "react"
 
-import { noop } from "./util"
 import SourceRender from "./SourceRender"
-
-jest.useFakeTimers()
 
 const reactResolver = () => React
 
@@ -21,116 +18,81 @@ export default Foo`
 const validSource = `
 import React from "react"
 
-const Foo = () => <span />
+const Bar = () => <span />
 
-export default Foo`
+export default Bar`
 
 describe("SourceRender", () => {
   beforeAll(() => {
-    global.console.error = noop
-
-    global.cancelAnimationFrame = id => clearTimeout(id)
-    global.requestAnimationFrame = fn => setTimeout(fn, 1)
+    global.console.error = () => {}
   })
 
   describe("children", () => {
     it("renders without errors", () => {
-      const attachTo = document.createElement("div")
-      document.body.appendChild(attachTo)
-      const wrapper = mount(<SourceRender resolver={reactResolver} source={validSource} />, {
-        attachTo,
-      })
+      const wrapper = mount(
+        <SourceRender resolver={reactResolver} source={validSource}>
+          <SourceRender.Consumer>{({ element }) => element}</SourceRender.Consumer>
+        </SourceRender>,
+      )
 
-      jest.runAllTimers()
-      expect(attachTo.innerHTML).toEqual("<div><span></span></div>")
-
-      wrapper.detach()
-      document.body.removeChild(attachTo)
+      expect(wrapper.find("Bar")).toHaveLength(1)
     })
 
     it("renders with errors", () => {
-      const attachTo = document.createElement("div")
-      document.body.appendChild(attachTo)
-      const wrapper = mount(<SourceRender resolver={reactResolver} source={invalidSource} />, {
-        attachTo,
-      })
+      const wrapper = mount(
+        <SourceRender resolver={reactResolver} source={invalidSource}>
+          <SourceRender.Consumer>{({ element }) => element}</SourceRender.Consumer>
+        </SourceRender>,
+      )
 
-      jest.runAllTimers()
-      expect(attachTo.innerHTML).toEqual("<div></div>")
-
-      wrapper.detach()
-      document.body.removeChild(attachTo)
+      expect(wrapper.find("FallbackRender")).toHaveLength(1)
     })
 
     it("renders last valid element after error", () => {
-      const attachTo = document.createElement("div")
-      document.body.appendChild(attachTo)
-      const wrapper = mount(<SourceRender source={validSource} resolver={reactResolver} />, {
-        attachTo,
-      })
+      const wrapper = mount(
+        <SourceRender resolver={reactResolver} source={validSource}>
+          <SourceRender.Consumer>{({ element }) => element}</SourceRender.Consumer>
+        </SourceRender>,
+      )
 
-      jest.runAllTimers()
-      expect(attachTo.innerHTML).toEqual("<div><span></span></div>")
+      expect(wrapper.find("FallbackRender")).toHaveLength(0)
+      expect(wrapper.find("Bar")).toHaveLength(1)
 
       wrapper.setProps({ source: invalidSource })
-      jest.runAllTimers()
-      expect(attachTo.innerHTML).toEqual("<div><span></span></div>")
+      wrapper.update()
 
-      wrapper.setProps({ source: validSource.replace(/span/g, "p") })
-      jest.runAllTimers()
-      expect(attachTo.innerHTML).toEqual("<div><p></p></div>")
-    })
-  })
-
-  describe("onRender", () => {
-    it("will be called with HTML markup on initial render", () => {
-      const onSuccess = jest.fn()
-      mount(<SourceRender onSuccess={onSuccess} source={validSource} resolver={reactResolver} />)
-
-      jest.runAllTimers()
-      expect(onSuccess).toBeCalledWith(
-        null,
-        expect.objectContaining({
-          markup: "<span></span>",
-        }),
-      )
-    })
-
-    it("will be called with HTML markup after update", () => {
-      const onSuccess = jest.fn()
-      const wrapper = mount(
-        <SourceRender onSuccess={onSuccess} source={validSource} resolver={reactResolver} />,
-      )
-      jest.runAllTimers()
-
-      wrapper.setProps({ source: validSource.replace(/span/g, "p") })
-      jest.runAllTimers()
-      expect(onSuccess).toBeCalledWith(
-        null,
-        expect.objectContaining({
-          markup: "<p></p>",
-        }),
-      )
+      expect(wrapper.find("FallbackRender")).toHaveLength(1)
+      expect(wrapper.find("Bar")).toHaveLength(1)
     })
   })
 
   describe("renderHtml", () => {
-    it("will be called with null markup when is `false`", () => {
-      const onSuccess = jest.fn()
+    it("will be called with empty markup when is `false`", () => {
+      const consumed = jest.fn()
       mount(
-        <SourceRender
-          onSuccess={onSuccess}
-          source={validSource}
-          renderHtml={false}
-          resolver={reactResolver}
-        />,
+        <SourceRender renderHtml={false} resolver={reactResolver} source={validSource}>
+          <SourceRender.Consumer>{consumed}</SourceRender.Consumer>
+        </SourceRender>,
       )
 
-      jest.runAllTimers()
-      expect(onSuccess).toBeCalledWith(
-        null,
+      expect(consumed).toBeCalledWith(
         expect.objectContaining({
-          markup: null,
+          markup: "",
+        }),
+      )
+    })
+
+    it("will be called with markup by default", () => {
+      const consumed = jest.fn()
+      mount(
+        <SourceRender resolver={reactResolver} source={validSource}>
+          <SourceRender.Consumer>{consumed}</SourceRender.Consumer>
+        </SourceRender>,
+      )
+
+      expect(consumed).toBeCalledWith(
+        expect.objectContaining({
+          markup: "<span></span>",
         }),
       )
     })

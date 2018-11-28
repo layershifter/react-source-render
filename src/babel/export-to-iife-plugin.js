@@ -1,10 +1,3 @@
-const createIIFEProgram = (t, body) =>
-  t.program([
-    t.expressionStatement(
-      t.callExpression(t.functionExpression(null, [], t.blockStatement(body)), []),
-    ),
-  ])
-
 const exportToIIFEPlugin = ({ types: t }) => ({
   visitor: {
     ExportDefaultDeclaration: path => {
@@ -23,7 +16,6 @@ const exportToIIFEPlugin = ({ types: t }) => ({
     },
     Program: {
       exit: path => {
-        path.replaceWith(createIIFEProgram(t, path.node.body))
         path.stop()
       },
     },
