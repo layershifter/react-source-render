@@ -12,75 +12,82 @@ const resolver = path => imports[path]
 
 export default class Sandbox extends Component {
   state = {
-    markup: "",
     source: `import React from "react";
 
-const Example = <div>Hello world!</div>;
+const Example = () => <div>Hello world!</div>;
  
 export default Example
 `,
   }
 
-  handleSourceChange = source => this.setState({ source })
-
-  handleRenderError = error => this.setState({ error })
-
-  handleRenderSuccess = (error, { markup }) => this.setState({ error, markup })
+  handleSourceChange = source => {
+    this.setState({ source })
+  }
 
   render() {
-    const { error, markup, source } = this.state
+    const { source } = this.state
 
     return (
       <Fragment>
         <Header as="h2">Live sandbox</Header>
 
-        <Segment
-          basic
-          attached="top"
-          style={{
-            background: "rgb(255, 255, 255)",
-            boxShadow: "rgb(204, 204, 204) 0px 1px 2px",
-          }}
-        >
-          <Grid columns={2} divided>
-            <Grid.Column>
-              <Label attached="top left" color="teal" size="tiny">
-                Preview
-              </Label>
+        <SourceRender resolver={resolver} source={source}>
+          <Segment
+            basic
+            attached="top"
+            style={{
+              background: "rgb(255, 255, 255)",
+              boxShadow: "rgb(204, 204, 204) 0px 1px 2px",
+            }}
+          >
+            <Grid columns={2} divided>
+              <Grid.Column>
+                <Label attached="top left" color="teal" size="tiny">
+                  Preview
+                </Label>
+                <SourceRender.Consumer>{({ element }) => element}</SourceRender.Consumer>
+              </Grid.Column>
+              <Grid.Column>
+                <Label attached="top right" color="teal" size="tiny">
+                  Rendered HTML
+                </Label>
 
-              <SourceRender
-                onError={this.handleRenderError}
-                onSuccess={this.handleRenderSuccess}
-                resolver={resolver}
-                source={source}
-              />
-            </Grid.Column>
-            <Grid.Column>
-              <Label attached="top right" color="teal" size="tiny">
-                Rendered HTML
-              </Label>
+                <SourceRender.Consumer>
+                  {({ markup }) => (
+                    <Editor
+                      editorProps={{ $blockScrolling: Infinity }}
+                      highlightActiveLine={false}
+                      highlightGutterLine={false}
+                      maxLines={Infinity}
+                      mode="html"
+                      name="html-editor"
+                      readOnly
+                      showCursor={false}
+                      showGutter={false}
+                      showPrintMargin={false}
+                      tabSize={2}
+                      theme="github"
+                      value={markup}
+                      width="100%"
+                    />
+                  )}
+                </SourceRender.Consumer>
+              </Grid.Column>
+            </Grid>
+          </Segment>
 
-              <Editor
-                editorProps={{ $blockScrolling: Infinity }}
-                highlightActiveLine={false}
-                highlightGutterLine={false}
-                maxLines={Infinity}
-                mode="html"
-                name="html-editor"
-                readOnly
-                showCursor={false}
-                showGutter={false}
-                showPrintMargin={false}
-                tabSize={2}
-                theme="github"
-                value={markup}
-                width="100%"
-              />
-            </Grid.Column>
-          </Grid>
-        </Segment>
+          <SourceRender.Consumer>
+            {({ error }) =>
+              error && (
+                <Message attached error>
+                  <pre>{error.toString()}</pre>
+                </Message>
+              )
+            }
+          </SourceRender.Consumer>
+        </SourceRender>
 
-        <Segment attached={error ? true : "bottom"} style={{ padding: 0 }}>
+        <Segment attached="bottom" style={{ padding: 0 }}>
           <Editor
             editorProps={{ $blockScrolling: Infinity }}
             maxLines={Infinity}
@@ -106,12 +113,6 @@ export default Example
             <Icon name="github" /> View source
           </Label>
         </Segment>
-
-        {error && (
-          <Message attached="bottom" error>
-            <pre>{error.toString()}</pre>
-          </Message>
-        )}
       </Fragment>
     )
   }

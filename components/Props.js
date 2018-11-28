@@ -1,7 +1,7 @@
 import React, { Fragment } from "react"
-import { Header, List, Segment, Table } from "semantic-ui-react"
+import { Header, Segment, Table } from "semantic-ui-react"
 
-const Usage = () => (
+const Props = () => (
   <Fragment>
     <Header as="h2">Component props</Header>
 
@@ -19,44 +19,6 @@ const Usage = () => (
               <code>babelConfig</code>
             </Table.Cell>
             <Table.Cell>A config for Babel.</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-              <code>onError</code>
-            </Table.Cell>
-            <Table.Cell>
-              <p>
-                A callback that will be called after the render process that ended with an error.
-              </p>
-
-              <List bulleted>
-                <List.Item>
-                  <code>{`{Error}`} error</code>
-                </List.Item>
-                <List.Item>
-                  <code>{`{Object}`} props</code>
-                </List.Item>
-              </List>
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-              <code>onSuccess</code>
-            </Table.Cell>
-            <Table.Cell>
-              <p>
-                A callback that will be called after the render process that ended successfully.
-              </p>
-
-              <List bulleted>
-                <List.Item>
-                  <code>{`{Null}`} null</code>
-                </List.Item>
-                <List.Item>
-                  <code>{`{Object}`} props</code>
-                </List.Item>
-              </List>
-            </Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell>
@@ -85,4 +47,4 @@ const Usage = () => (
   </Fragment>
 )
 
-export default Usage
+export default Props

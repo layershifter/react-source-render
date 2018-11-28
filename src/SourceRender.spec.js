@@ -4,7 +4,6 @@
 import { mount } from "enzyme"
 import * as React from "react"
 
-import { noop } from "./util"
 import SourceRender from "./SourceRender"
 
 jest.useFakeTimers()
@@ -27,7 +26,7 @@ export default Foo`
 
 describe("SourceRender", () => {
   beforeAll(() => {
-    global.console.error = noop
+    global.console.error = () => {}
 
     global.cancelAnimationFrame = id => clearTimeout(id)
     global.requestAnimationFrame = fn => setTimeout(fn, 1)

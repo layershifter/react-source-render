@@ -5,19 +5,17 @@ const cases = [
   {
     name: "class",
     source: "export default class Foo {}",
-    expected: `(function () {
-  class Foo {}
+    expected: `class Foo {}
 
   return Foo;
-})();`,
+`,
   },
   {
     name: "const",
     source: "const Foo = 1; export default Foo",
-    expected: `(function () {
-  const Foo = 1;
+    expected: `const Foo = 1;
   return Foo;
-})();`,
+`,
   },
 ]
 

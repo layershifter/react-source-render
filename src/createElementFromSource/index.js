@@ -1,1 +1,1 @@
-export { default } from "./createElementFromSource"
+export { default } from "./createComponentFromSource"
