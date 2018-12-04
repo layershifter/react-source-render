@@ -12,7 +12,16 @@ class SourceRender extends Component {
     /** A config for Babel. */
     babelConfig: PropTypes.object,
 
+    /** Primary content. */
     children: PropTypes.node.isRequired,
+
+    /**
+     * A function that allows to customize you rendering of an result element, i.e wrap with a
+     * Provider.
+     *
+     * @param {React.Element} A created element.
+     */
+    render: PropTypes.func,
 
     /**
      * An option that controls rendering of HTML with ReactDOM server, it allows to omit
@@ -36,6 +45,7 @@ class SourceRender extends Component {
 
   static defaultProps = {
     babelConfig: {},
+    render: element => element,
     renderHtml: true,
     resolverContext: {},
   }
@@ -60,6 +70,7 @@ class SourceRender extends Component {
     const {
       babelConfig,
       children,
+      render,
       renderHtml,
       resolver,
       resolverContext,
@@ -76,14 +87,14 @@ class SourceRender extends Component {
       )
 
       this.renderCycleId += 1
-      this.currentElement = (
+      this.currentElement = render(
         <SafeRender
           cycleId={this.renderCycleId}
           onError={this.handleError}
           prevChildren={this.renderedElements}
         >
           <ComponentFromSource {...rest} />
-        </SafeRender>
+        </SafeRender>,
       )
       this.htmlMarkup = renderHtml ? renderToStaticMarkup(this.currentElement) : ""
 
