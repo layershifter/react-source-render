@@ -105,7 +105,7 @@ export default Example
             as="a"
             attached="bottom right"
             color="black"
-            href="https://github.com/layershifter/react-source-render/blob/master/docs/components/Sandbox"
+            href="https://github.com/layershifter/react-source-render/blob/master/components/Sandbox.js"
             size="tiny"
             style={{ zIndex: 10 }}
             target="blank"
