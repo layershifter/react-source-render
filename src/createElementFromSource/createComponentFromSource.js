@@ -13,11 +13,11 @@ export const createFunction = memoize(source => new Function(resolverId, source)
  * @param {String} source A string that contains the source code
  * @param {Function} resolver A function for the imports resolution
  */
-export const evalSource = memoize((source, resolver) => {
+export const evalSource = (source, resolver) => {
   const evalWithResolver = createFunction(source)
 
   return evalWithResolver(resolver)
-})
+}
 
 /**
  * Creates a valid React Component from source.
