@@ -84,7 +84,7 @@ const HomePage = ({ version }) => (
             style={{ color: "#fff" }}
             target="_blank"
           >
-            <Image style={{ height: 20, marginRight: 2 }} spaced src="/static/logo-sui.png" />{" "}
+            <Image style={{ height: 20, marginRight: 2 }} spaced src="static/logo-sui.png" />{" "}
             Semantic UI
           </a>
         </Grid.Column>

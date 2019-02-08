@@ -11,7 +11,7 @@ const Title = ({ version }) => (
       style={{ minHeight: "20em", padding: "1em 0em" }}
       vertical
     >
-      <Image centered size="small" src="/static/logo-white.png" />
+      <Image centered size="small" src="static/logo-white.png" />
 
       <Header
         as="h1"
