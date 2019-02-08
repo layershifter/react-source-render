@@ -30,30 +30,29 @@ export default Example
     return (
       <Fragment>
         <Header as="h2">Live sandbox</Header>
-
         <SourceRender resolver={resolver} source={source}>
-          <Segment
-            basic
-            attached="top"
-            style={{
-              background: "rgb(255, 255, 255)",
-              boxShadow: "rgb(204, 204, 204) 0px 1px 2px",
-            }}
-          >
-            <Grid columns={2} divided>
-              <Grid.Column>
-                <Label attached="top left" color="teal" size="tiny">
-                  Preview
-                </Label>
-                <SourceRender.Consumer>{({ element }) => element}</SourceRender.Consumer>
-              </Grid.Column>
-              <Grid.Column>
-                <Label attached="top right" color="teal" size="tiny">
-                  Rendered HTML
-                </Label>
+          {({ element, error, markup }) => (
+            <Fragment>
+              <Segment
+                basic
+                attached="top"
+                style={{
+                  background: "rgb(255, 255, 255)",
+                  boxShadow: "rgb(204, 204, 204) 0px 1px 2px",
+                }}
+              >
+                <Grid columns={2} divided>
+                  <Grid.Column>
+                    <Label attached="top left" color="teal" size="tiny">
+                      Preview
+                    </Label>
+                    {element}
+                  </Grid.Column>
+                  <Grid.Column>
+                    <Label attached="top right" color="teal" size="tiny">
+                      Rendered HTML
+                    </Label>
 
-                <SourceRender.Consumer>
-                  {({ markup }) => (
                     <Editor
                       editorProps={{ $blockScrolling: Infinity }}
                       highlightActiveLine={false}
@@ -70,21 +69,17 @@ export default Example
                       value={markup}
                       width="100%"
                     />
-                  )}
-                </SourceRender.Consumer>
-              </Grid.Column>
-            </Grid>
-          </Segment>
+                  </Grid.Column>
+                </Grid>
+              </Segment>
 
-          <SourceRender.Consumer>
-            {({ error }) =>
-              error && (
+              {error && (
                 <Message attached error>
                   <pre>{error.toString()}</pre>
                 </Message>
-              )
-            }
-          </SourceRender.Consumer>
+              )}
+            </Fragment>
+          )}
         </SourceRender>
 
         <Segment attached="bottom" style={{ padding: 0 }}>

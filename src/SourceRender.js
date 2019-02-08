@@ -1,19 +1,17 @@
 import PropTypes from "prop-types"
-import React, { Component, createContext } from "react"
-import { renderToStaticMarkup } from "react-dom/server"
+import React, { Component } from "react"
 
-import createComponentFromSource from "./createElementFromSource"
+import ComponentFactory from "./ComponentFactory"
 import SafeRender from "./SafeRender"
-
-const { Consumer, Provider } = createContext("SourceRender.Element")
+import MarkupFromElement from "./MarkupFromElement"
 
 class SourceRender extends Component {
   static propTypes = {
     /** A config for Babel. */
     babelConfig: PropTypes.object,
 
-    /** Primary content. */
-    children: PropTypes.node.isRequired,
+    /** A render function. */
+    children: PropTypes.func.isRequired,
 
     /**
      * A function that allows to customize you rendering of an result element, i.e wrap with a
@@ -50,20 +48,34 @@ class SourceRender extends Component {
     resolverContext: {},
   }
 
-  /** Stores an HTML markup for the current element. */
-  htmlMarkup = ""
+  state = {
+    renderId: 0,
+  }
 
-  /** Stores a current rendered element. */
-  currentElement = null
+  static getDerivedStateFromProps(props, state) {
+    return {
+      renderId: state.renderId + 1,
+    }
+  }
 
-  /** Stores previously rendered elements. */
-  renderedElements = { 0: null }
+  renderComponent = (ele) => {
+    const {
+      babelConfig,
+      children,
+      render,
+      renderHtml,
+      resolver,
+      resolverContext,
+      source,
+      ...rest
+    } = this.props
+    const element = render(ele)
 
-  /** Stores an incremented value of the render cycle. */
-  renderCycleId = 0
-
-  handleError = cycleId => {
-    this.renderedElements[cycleId] = undefined
+    return (
+      <MarkupFromElement active={renderHtml} element={element}>
+        {(markup) => children({ element, markup })}
+      </MarkupFromElement>
+    )
   }
 
   render() {
@@ -77,43 +89,21 @@ class SourceRender extends Component {
       source,
       ...rest
     } = this.props
-
-    try {
-      const ComponentFromSource = createComponentFromSource(
-        babelConfig,
-        resolver,
-        resolverContext,
-        source,
-      )
-
-      this.renderCycleId += 1
-      this.currentElement = render(
-        <SafeRender
-          cycleId={this.renderCycleId}
-          onError={this.handleError}
-          prevChildren={this.renderedElements}
-        >
-          <ComponentFromSource {...rest} />
-        </SafeRender>,
-      )
-      this.htmlMarkup = renderHtml ? renderToStaticMarkup(this.currentElement) : ""
-
-      this.renderedElements[this.renderCycleId] = this.currentElement
-      this.error = undefined
-    } catch (e) {
-      this.error = e
-    }
+    const { renderId } = this.state
 
     return (
-      <Provider
-        value={{ error: this.error, element: this.currentElement, markup: this.htmlMarkup }}
-      >
-        {children}
-      </Provider>
+      <SafeRender renderId={renderId}>
+        <ComponentFactory
+          babelConfig={babelConfig}
+          render={this.renderComponent}
+          resolver={resolver}
+          resolverContext={resolverContext}
+          source={source}
+          componentProps={rest}
+        />
+      </SafeRender>
     )
   }
 }
-
-SourceRender.Consumer = Consumer
 
 export default SourceRender

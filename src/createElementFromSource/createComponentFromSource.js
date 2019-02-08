@@ -2,10 +2,10 @@ import memoize from "fast-memoize"
 import * as is from "react-is"
 
 import transformSource from "./transformSource"
-import { resolverId } from "../babel"
+import { exportId, resolverId } from "../babel"
 
 // eslint-disable-next-line no-new-func
-export const createFunction = memoize(source => new Function(resolverId, source))
+export const createFunction = memoize(source => new Function(exportId, resolverId, source))
 
 /**
  * Evaluates passed source code, uses passed resolver to resolve imports.
@@ -14,25 +14,27 @@ export const createFunction = memoize(source => new Function(resolverId, source)
  * @param {Function} resolver A function for the imports resolution
  */
 export const evalSource = (source, resolver) => {
+  const Component = { }
   const evalWithResolver = createFunction(source)
 
-  return evalWithResolver(resolver)
+  console.log('BEFORE', Component)
+
+  evalWithResolver(Component, resolver)
+  console.log('AFTER', Component)
+  return Component.default
 }
 
 /**
  * Creates a valid React Component from source.
  *
  * @param {Object} babelConfig A config for Babel
- * @param {Function} resolver A function for the imports resolution
- * @param {Object} resolverContext A context of resolver, will be passed as second argument to it
  * @param {String} source A string that contains the source code
+ * @param {Function} resolver A function for the imports resolution
  */
-const createComponentFromSource = (babelConfig, resolver, resolverContext, source) => {
+const createComponentFromSource = (babelConfig, source, resolver) => {
   const transformed = transformSource(babelConfig, source)
-
-  const resolverWithContext = importName => resolver(importName, resolverContext)
-  const component = evalSource(transformed, resolverWithContext)
-
+  const component = evalSource(transformed, resolver)
+console.log(transformed, component)
   if (!is.isValidElementType(component)) {
     throw new Error("Render: your source should have a default export with a React component")
   }

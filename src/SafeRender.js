@@ -1,14 +1,14 @@
 import PropTypes from "prop-types"
-import React, { Component } from "react"
-
-import FallbackRender from "./FallbackRender"
+import { Component } from "react"
 
 export default class SafeRender extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    cycleId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    onError: PropTypes.func.isRequired,
     prevChildren: PropTypes.objectOf(PropTypes.element),
+    renderId: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ])
   }
 
   static defaultProps = {
@@ -16,29 +16,35 @@ export default class SafeRender extends Component {
   }
 
   state = {
-    // eslint-disable-next-line
-    cycleId: 0,
-    failed: false,
+    prevChildren: null,
   }
 
   static getDerivedStateFromProps(props, state) {
+    // console.log('getDerivedStateFromProps', {
+    //   error: props.renderId === state.renderId ? state.error.toString() : null,
+    //   propsId: props.renderId,
+    //   stateId: state.renderId,
+    // })
+    const error = props.renderId === state.renderId ? state.error : null
+
     return {
-      cycleId: props.cycleId,
-      failed: props.cycleId === state.cycleId ? state.failed : false,
+      renderId: props.renderId,
+      error,
+      prevChildren: error ? state.prevChildren : props.children,
     }
   }
 
-  componentDidCatch() {
-    const { cycleId, onError } = this.props
-
-    onError(cycleId)
-    this.setState({ failed: true })
+  static getDerivedStateFromError(error) {
+    // console.log('getDerivedStateFromError()')
+    return { error }
   }
 
   render() {
-    const { children, prevChildren } = this.props
-    const { failed } = this.state
+    // console.log('render', this.state.prevChildren)
 
-    return failed ? <FallbackRender>{prevChildren}</FallbackRender> : children
+    const { children } = this.props
+    const { error, prevChildren } = this.state
+
+    return error ? null : children
   }
 }

@@ -13,6 +13,7 @@
     "deepmerge": "^2.2.1",
     "fast-memoize": "^2.5.1",
     "prop-types": "^15.6.2",
+    "react-fast-compare": "^2.0.4",
     "react-is": "^16.6.3"
   },
   "devDependencies": {
