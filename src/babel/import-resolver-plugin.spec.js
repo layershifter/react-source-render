@@ -10,13 +10,9 @@ const cases = [
   {
     name: "destructure",
     source: "import { has, get } from 'lodash'",
-    expected: `const {
-  has
-} = ${resolverId}("lodash");
+    expected: `const has = ${resolverId}("lodash").has;
 
-const {
-  get
-} = ${resolverId}("lodash");`,
+const get = ${resolverId}("lodash").get;`,
   },
   {
     name: "namespace",
@@ -25,19 +21,17 @@ const {
   },
   {
     name: "combined",
-    source: "import React, { Component } from 'react'",
+    source: "import React, { Component, createRef } from 'react'",
     expected: `const React = ${resolverId}("react");
 
-const {
-  Component
-} = ${resolverId}("react");`,
+const Component = ${resolverId}("react").Component;
+
+const createRef = ${resolverId}("react").createRef;`,
   },
   {
     name: "as",
     source: "import { Component as C } from 'react'",
-    expected: `const {
-  Component: C
-} = ${resolverId}("react");`,
+    expected: `const C = ${resolverId}("react").Component;`,
   },
 ]
 

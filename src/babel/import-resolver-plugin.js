@@ -8,18 +8,14 @@ const createVariableDeclaration = (t, specifier, source) =>
     ),
   ])
 
-const createDestructedDeclaration = (t, specifier, source) =>
+const createDeclaration = (t, specifier, source) =>
   t.variableDeclaration("const", [
     t.variableDeclarator(
-      t.objectPattern([
-        t.objectProperty(
-          t.identifier(specifier.imported.name),
-          t.identifier(specifier.local.name),
-          false,
-          true,
-        ),
-      ]),
-      t.callExpression(t.identifier(resolverId), [t.stringLiteral(source.value)]),
+      t.identifier(specifier.local.name),
+      t.memberExpression(
+        t.callExpression(t.identifier(resolverId), [t.stringLiteral(source.value)]),
+        t.identifier(specifier.imported.name),
+      ),
     ),
   ])
 
@@ -32,7 +28,7 @@ const importResolverPlugin = ({ types: t }) => ({
         }
 
         if (t.isImportSpecifier(specifier)) {
-          return createDestructedDeclaration(t, specifier, path.node.source)
+          return createDeclaration(t, specifier, path.node.source)
         }
 
         return null
