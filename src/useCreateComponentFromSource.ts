@@ -9,8 +9,8 @@ import { useHMRId } from "./useHMRId"
 /**
  * Evaluates passed source code, uses passed resolver to resolve imports.
  */
-export const useEvalSourceCode = (source: SourceCode, resolver: Resolver): React.FunctionComponent => {
-  const hmrId = useHMRId()
+export const useEvalSourceCode = (hot: boolean, source: SourceCode, resolver: Resolver): React.FunctionComponent => {
+  const hmrId = useHMRId(hot)
 
   return React.useMemo(
     () => new Function(resolverId, source)(resolver),
@@ -21,9 +21,9 @@ export const useEvalSourceCode = (source: SourceCode, resolver: Resolver): React
 /**
  * Creates a valid React Component from source.
  */
-export const useCreateComponentFromSource = (babelConfig: BabelConfig, source: SourceCode, resolver: Resolver): React.ElementType => {
+export const useCreateComponentFromSource = (babelConfig: BabelConfig, hot: boolean, source: SourceCode, resolver: Resolver): React.ElementType => {
   const { error, transformed } = useBabelTransform(babelConfig, source)
-  const component = useEvalSourceCode(transformed, resolver)
+  const component = useEvalSourceCode(hot, transformed, resolver)
 
   // We have to rethrow error because in other case we will break hooks stack
   if (error) {

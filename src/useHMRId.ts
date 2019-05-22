@@ -10,6 +10,6 @@ if (process.env.NODE_ENV !== "production") {
   }
 }
 
-export const useHMRId = () => {
-  return hmrId
+export const useHMRId = (enabled: boolean) => {
+  return enabled ? hmrId : 0
 }

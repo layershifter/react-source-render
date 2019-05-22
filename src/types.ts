@@ -26,4 +26,7 @@ export type RenderConfig = {
 
   /** A string that contains the source code. */
   source: SourceCode
+
+  /** Enables support for hot-reloading in Webpack. */
+  unstable_hot?: boolean
 }

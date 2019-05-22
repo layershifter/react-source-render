@@ -17,7 +17,7 @@ const useResolveHandler = (resolver: Resolver, context: ResolverContext) => {
 }
 
 const useRenderElement = (options: Required<RenderConfig>) => {
-  const { babelConfig, source, renderHtml, resolver, resolverContext, ...rest } = options
+  const { babelConfig, source, renderHtml, resolver, resolverContext, unstable_hot, ...rest } = options
 
   const handleResolve = useResolveHandler(resolver, resolverContext)
   const latestElement = React.useRef<React.ReactElement | null>(null)
@@ -26,6 +26,7 @@ const useRenderElement = (options: Required<RenderConfig>) => {
   try {
     const component = useCreateComponentFromSource(
       babelConfig,
+      unstable_hot,
       source,
       handleResolve,
     )

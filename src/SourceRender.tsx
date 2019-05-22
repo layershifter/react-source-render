@@ -27,6 +27,7 @@ export class SourceRender extends React.Component<SourceRenderProps, SourceRende
     resolver: PropTypes.func.isRequired,
     resolverContext: PropTypes.object,
     source: PropTypes.string.isRequired,
+    unstable_hot: PropTypes.bool,
     wrap: PropTypes.func,
   }
 
@@ -34,6 +35,7 @@ export class SourceRender extends React.Component<SourceRenderProps, SourceRende
     babelConfig: {},
     renderHtml: true,
     resolverContext: {},
+    unstable_hot: false,
     wrap: (children: React.ReactElement) => children,
   }
 
