@@ -1,15 +1,15 @@
 import { resolverId } from "../babel/import-resolver-plugin"
-import { evalSource } from "./createComponentFromSource"
+import { useEvalSourceCode } from "../useCreateComponentFromSource"
 
-describe("evalSource", () => {
+describe("useEvalSourceCode", () => {
   it("evals passed source code", () => {
-    expect(evalSource("return 2", null)).toBe(2)
+    expect(useEvalSourceCode("return 2", null)).toBe(2)
   })
 
   it("passes context to resolved", () => {
     const resolver = jest.fn()
 
-    evalSource(`return ${resolverId}("IMPORT_PATH")`, resolver)
+    useEvalSourceCode(`return ${resolverId}("IMPORT_PATH")`, resolver)
 
     expect(resolver).toBeCalledTimes(1)
     expect(resolver).toBeCalledWith("IMPORT_PATH")

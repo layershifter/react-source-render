@@ -1,5 +1,5 @@
 import * as Babel from "@babel/standalone"
-import exportToIifePlugin from "./export-to-iife-plugin"
+import { exportToIifePlugin } from "./export-to-iife-plugin"
 
 const cases = [
   {

@@ -1,5 +1,5 @@
 import * as Babel from "@babel/standalone"
-import importResolverPlugin, { resolverId } from "./import-resolver-plugin"
+import { importResolverPlugin, resolverId } from "./import-resolver-plugin"
 
 const cases = [
   {

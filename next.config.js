@@ -1,6 +1,7 @@
+const withTypescript = require('@zeit/next-typescript')
 const path = require("path")
 
-module.exports = {
+module.exports = withTypescript({
   webpack: config => {
     /* eslint-disable no-param-reassign */
     config.resolve.alias = config.resolve.alias || {}
@@ -8,4 +9,4 @@ module.exports = {
 
     return config
   },
-}
+})

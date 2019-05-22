@@ -12,9 +12,14 @@ const resolver = path => imports[path]
 
 export default class Sandbox extends Component {
   state = {
+    i: 1,
     source: `import React from "react";
 
-const Example = () => <div>Hello world!</div>;
+const Example = () => {
+  const [i, setI] = React.useState(0)
+  
+  return <button onClick={() => setI(i + 1)}>Hello world, {i}!</button>;
+}
  
 export default Example
 `,
@@ -22,6 +27,10 @@ export default Example
 
   handleSourceChange = source => {
     this.setState({ source })
+  }
+
+  componentDidMount() {
+    setInterval(() => this.setState({ i: this.state.i + 1 }), 1000)
   }
 
   render() {
