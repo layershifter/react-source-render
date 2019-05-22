@@ -11,7 +11,7 @@ type SourceRenderProps = RenderConfig & {
    * A function that allows to customize you rendering of an result element, i.e wrap with a
    * Provider.
    */
-  wrap: (children: React.ReactElement) => React.ReactElement
+  wrap?: (children: React.ReactElement) => React.ReactElement
 }
 
 type SourceRenderState = {

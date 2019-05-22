@@ -1,10 +1,11 @@
 {
   "name": "react-source-render",
-  "version": "3.0.0-0",
+  "version": "3.0.0-1",
   "repository": "https://github.com/layershifter/react-source-render.git",
   "author": "Alexander Fedyashov <a@fedyashov.com>",
   "license": "MIT",
   "dependencies": {
+    "@babel/runtime": "^7.4.5",
     "deepmerge": "^2.2.1",
     "prop-types": "^15.6.2",
     "react-fast-compare": "^2.0.4",
