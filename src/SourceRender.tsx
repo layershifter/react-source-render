@@ -4,7 +4,7 @@ import * as React from "react"
 import { ComponentRender } from "./ComponentRender"
 import { RenderChildrenProp, RenderConfig, SourceCode } from "./types"
 
-type SourceRenderProps = RenderConfig & {
+type SourceRenderProps = Record<string, any> & RenderConfig & {
   children: RenderChildrenProp
 
   /**
