@@ -17,7 +17,7 @@ const useResolveHandler = (resolver: Resolver, context: ResolverContext) => {
 }
 
 const useRenderElement = (options: Required<RenderConfig>) => {
-  const { babelConfig, source, renderHtml, resolver, resolverContext, unstable_hot, ...rest } = options
+  const { babelConfig, source, renderHtml, resolver, resolverContext, unstable_hot, wrap, ...rest } = options
 
   const handleResolve = useResolveHandler(resolver, resolverContext)
   const latestElement = React.useRef<React.ReactElement | null>(null)
@@ -32,7 +32,7 @@ const useRenderElement = (options: Required<RenderConfig>) => {
     )
 
     latestElement.current = React.createElement(component, rest)
-    latestMarkup.current = renderHtml ? renderToStaticMarkup(latestElement.current) : ''
+    latestMarkup.current = renderHtml ? renderToStaticMarkup(wrap(latestElement.current)) : ''
 
     return { element: latestElement.current, markup: latestMarkup.current, error: null }
   } catch (error) {

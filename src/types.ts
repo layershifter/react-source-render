@@ -29,4 +29,10 @@ export type RenderConfig = {
 
   /** Enables support for hot-reloading in Webpack. */
   unstable_hot?: boolean
+
+  /**
+   * A function that allows to customize you rendering of an result element, i.e wrap with a
+   * Provider.
+   */
+  wrap?: (children: React.ReactElement) => React.ReactElement
 }

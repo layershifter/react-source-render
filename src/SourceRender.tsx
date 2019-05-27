@@ -6,12 +6,6 @@ import { RenderChildrenProp, RenderConfig, SourceCode } from "./types"
 
 type SourceRenderProps = Record<string, any> & RenderConfig & {
   children: RenderChildrenProp
-
-  /**
-   * A function that allows to customize you rendering of an result element, i.e wrap with a
-   * Provider.
-   */
-  wrap?: (children: React.ReactElement) => React.ReactElement
 }
 
 type SourceRenderState = {
@@ -61,6 +55,6 @@ export class SourceRender extends React.Component<SourceRenderProps, SourceRende
     const { wrap, ...rest } = this.props as Required<SourceRenderProps>
     const { error } = this.state
 
-    return wrap(<ComponentRender {...rest} fallbackElement={this.fallbackElement} runtimeError={error}/>)
+    return wrap(<ComponentRender {...rest} fallbackElement={this.fallbackElement} runtimeError={error} wrap={wrap} />)
   }
 }
