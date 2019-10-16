@@ -12,10 +12,11 @@ const resolver = path => imports[path]
 
 export default class Sandbox extends Component {
   state = {
-    i: 1,
+    error: null,
     source: `import React from "react";
 
 const Example = () => {
+console.log('EXEC')
   const [i, setI] = React.useState(0)
   
   return <button onClick={() => setI(i + 1)}>Hello world, {i}!</button>;
@@ -29,67 +30,71 @@ export default Example
     this.setState({ source })
   }
 
-  componentDidMount() {
-    setInterval(() => this.setState({ i: this.state.i + 1 }), 1000)
-  }
+  handleRender = error =>
+    this.setState(prevState => {
+      const prevError = prevState.error && prevState.error.toString()
+      const nextError = error && error.toString()
+
+      if (prevError !== nextError) {
+        return { error }
+      }
+
+      return null
+    })
 
   render() {
-    const { source } = this.state
+    console.log("RENDER")
+    const { error, source } = this.state
 
     return (
       <Fragment>
         <Header as="h2">Live sandbox</Header>
-        <SourceRender resolver={resolver} source={source}>
-          {({ element, error, markup }) => (
-            <Fragment>
-              <Segment
-                basic
-                attached="top"
-                style={{
-                  background: "rgb(255, 255, 255)",
-                  boxShadow: "rgb(204, 204, 204) 0px 1px 2px",
-                }}
-              >
-                <Grid columns={2} divided>
-                  <Grid.Column>
-                    <Label attached="top left" color="teal" size="tiny">
-                      Preview
-                    </Label>
-                    {element}
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Label attached="top right" color="teal" size="tiny">
-                      Rendered HTML
-                    </Label>
+        <Segment
+          basic
+          attached="top"
+          style={{
+            background: "rgb(255, 255, 255)",
+            boxShadow: "rgb(204, 204, 204) 0px 1px 2px",
+          }}
+        >
+          <Grid columns={2} divided>
+            <Grid.Column>
+              <Label attached="top left" color="teal" size="tiny">
+                Preview
+              </Label>
 
-                    <Editor
-                      editorProps={{ $blockScrolling: Infinity }}
-                      highlightActiveLine={false}
-                      highlightGutterLine={false}
-                      maxLines={Infinity}
-                      mode="html"
-                      name="html-editor"
-                      readOnly
-                      showCursor={false}
-                      showGutter={false}
-                      showPrintMargin={false}
-                      tabSize={2}
-                      theme="github"
-                      value={markup}
-                      width="100%"
-                    />
-                  </Grid.Column>
-                </Grid>
-              </Segment>
+              <SourceRender onError={this.handleRender} resolver={resolver} source={source} />
+            </Grid.Column>
+            <Grid.Column>
+              <Label attached="top right" color="teal" size="tiny">
+                Rendered HTML
+              </Label>
 
-              {error && (
-                <Message attached error>
-                  <pre>{error.toString()}</pre>
-                </Message>
-              )}
-            </Fragment>
-          )}
-        </SourceRender>
+              {/* <Editor */}
+              {/*  editorProps={{ $blockScrolling: Infinity }} */}
+              {/*  highlightActiveLine={false} */}
+              {/*  highlightGutterLine={false} */}
+              {/*  maxLines={Infinity} */}
+              {/*  mode="html" */}
+              {/*  name="html-editor" */}
+              {/*  readOnly */}
+              {/*  showCursor={false} */}
+              {/*  showGutter={false} */}
+              {/*  showPrintMargin={false} */}
+              {/*  tabSize={2} */}
+              {/*  theme="github" */}
+              {/*  value={markup} */}
+              {/*  width="100%" */}
+              {/* /> */}
+            </Grid.Column>
+          </Grid>
+        </Segment>
+
+        {error && (
+          <Message attached error>
+            <pre>{error.toString()}</pre>
+          </Message>
+        )}
 
         <Segment attached="bottom" style={{ padding: 0 }}>
           <Editor

@@ -2,10 +2,10 @@ import * as PropTypes from "prop-types"
 import * as React from "react"
 
 import { ComponentRender } from "./ComponentRender"
-import { RenderChildrenProp, RenderConfig, SourceCode } from "./types"
+import { RenderConfig, SourceCode } from "./types"
 
-type SourceRenderProps = Record<string, any> & RenderConfig & {
-  children: RenderChildrenProp
+type SourceRenderProps = RenderConfig & {
+  onRender?: (error: Error | null) => void
 }
 
 type SourceRenderState = {
@@ -13,32 +13,29 @@ type SourceRenderState = {
   source: SourceCode
 }
 
-export class SourceRender extends React.Component<SourceRenderProps, SourceRenderState> {
+export class SourceRender extends React.PureComponent<SourceRenderProps, SourceRenderState> {
   static propTypes = {
     babelConfig: PropTypes.object,
-    children: PropTypes.func.isRequired,
-    renderHtml: PropTypes.bool,
+    onRender: PropTypes.func,
     resolver: PropTypes.func.isRequired,
     resolverContext: PropTypes.object,
     source: PropTypes.string.isRequired,
-    unstable_hot: PropTypes.bool,
-    wrap: PropTypes.func,
+    hot: PropTypes.bool,
   }
 
   static defaultProps = {
     babelConfig: {},
+    hot: false,
     renderHtml: true,
     resolverContext: {},
-    unstable_hot: false,
-    wrap: (children: React.ReactElement) => children,
   }
+
+  fallbackElement = React.createRef<React.ReactElement>() as React.MutableRefObject<React.ReactElement>
 
   state = {
     error: null,
     source: '',
   }
-
-  fallbackElement = React.createRef<React.ReactElement>() as React.MutableRefObject<React.ReactElement>
 
   static getDerivedStateFromProps(props: SourceRenderProps, state: SourceRenderState): SourceRenderState {
     return {
@@ -51,10 +48,16 @@ export class SourceRender extends React.Component<SourceRenderProps, SourceRende
     return { error }
   }
 
+  handleResolve = (importName: string) => {
+    const { resolver, resolverContext } = this.props as Required<SourceRenderProps>
+
+    return resolver(importName, resolverContext)
+  }
+
   render() {
-    const { wrap, ...rest } = this.props as Required<SourceRenderProps>
+    const { resolver, resolverContext, ...rest } = this.props as Required<SourceRenderProps>
     const { error } = this.state
 
-    return wrap(<ComponentRender {...rest} fallbackElement={this.fallbackElement} runtimeError={error} wrap={wrap} />)
+    return <ComponentRender {...rest} fallbackElement={this.fallbackElement} resolver={this.handleResolve} runtimeError={error} />
   }
 }

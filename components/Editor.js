@@ -1,4 +1,5 @@
 import * as exenv from "exenv"
+import React from "react"
 
 // eslint-disable-next-line import/no-mutable-exports
 let Editor = () => null
@@ -11,7 +12,13 @@ if (exenv.canUseDOM) {
   require("brace/mode/sh")
   require("brace/theme/github")
 
-  Editor = AceEditor.default
+  Editor = props => {
+    React.useEffect(() => {
+      console.log("MOUNT")
+    }, [])
+
+    return React.createElement(AceEditor.default, props)
+  }
 }
 
 export default Editor

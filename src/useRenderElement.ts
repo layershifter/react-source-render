@@ -1,42 +1,25 @@
 import * as React from "react"
-import { renderToStaticMarkup } from "react-dom/server"
 
 import { useCreateComponentFromSource } from "./useCreateComponentFromSource"
-import { RenderConfig, Resolver, ResolverContext } from "./types"
+import { RenderConfig } from "./types"
 
-const useResolveHandler = (resolver: Resolver, context: ResolverContext) => {
-  const latestResolver = React.useRef<Resolver>(resolver)
-  const latestContext = React.useRef<ResolverContext>(context)
-
-  latestResolver.current = resolver
-  latestContext.current = context
-
-  return React.useCallback((importName) => {
-    return latestResolver.current(importName, latestContext.current)
-  }, [])
-}
-
-const useRenderElement = (options: Required<RenderConfig>) => {
-  const { babelConfig, source, renderHtml, resolver, resolverContext, unstable_hot, wrap, ...rest } = options
-
-  const handleResolve = useResolveHandler(resolver, resolverContext)
+const useRenderElement = (options: Required<RenderConfig>) : { element: React.ReactElement | null, error: Error | null } => {
+  const { babelConfig, hot, source, resolver, ...rest } = options
   const latestElement = React.useRef<React.ReactElement | null>(null)
-  const latestMarkup = React.useRef<string>("")
 
   try {
     const component = useCreateComponentFromSource(
       babelConfig,
-      unstable_hot,
+      hot,
       source,
-      handleResolve,
+      resolver,
     )
 
     latestElement.current = React.createElement(component, rest)
-    latestMarkup.current = renderHtml ? renderToStaticMarkup(wrap(latestElement.current)) : ''
 
-    return { element: latestElement.current, markup: latestMarkup.current, error: null }
+    return { element: latestElement.current, error: null }
   } catch (error) {
-    return { element: latestElement.current, markup: latestMarkup.current, error }
+    return { element: latestElement.current, error }
   }
 }
 
