@@ -1,3 +1,11 @@
+# DEPRECATED
+
+Consider to use https://github.com/uber/react-view instead.
+
+----
+
+
+
 <!-- Logo -->
 <p align="center">
   <a href="https://layershifter.github.io/react-source-render/">
